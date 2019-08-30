@@ -1,0 +1,147 @@
+﻿@model Models.User
+@using Models.Resources
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+
+@using (Html.BeginForm("EditUserView", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">@Resource.EditUser :  @Html.DisplayTextFor(x => x.Name) </h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                        <img id="imgFileUpload" alt="Clicca per caricare una nuova immagine" title="Clicca per caricare una nuova immagine" class="image-uploaded" src="@(Model.Image ?? "/images/admin.jpg")" style="cursor: pointer; max-height: 100px" onclick="$('#logoUpload').click();" />
+                        <input type="file" name="logoUpload" class="uploader" id="logoUpload" style="display: none" />
+                        @Html.HiddenFor(x => x.Image, new { @class = "input-uploaded" })
+                    </div>
+                </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Resource.Name</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                    <span asp-validation-for="Name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Resource.Surname</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Surname, htmlAttributes: new { @class = "form-control" })
+                    <span asp-validation-for="Surname" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Resource.CreationDate</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.CreationDate, htmlAttributes: new { @class = "form-control", disabled = "true" })
+                    <span asp-validation-for="CreationDate" />
+                </div>
+            </div>
+
+
+            @*<div class="form-group">
+            <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default" disabled="disabled">@Html.LabelFor(x => x.CreationDate)</span></label>
+            <div class="col-sm-10" disabled="true">
+                @Html.TextBoxFor(x => x.CreationDate, htmlAttributes: new { @class = "form-control", disabled = "disabled" })
+                <span asp-validation-for="CreationDate" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Html.LabelFor(x => x.DeactivationDate)</span></label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.DeactivationDate, htmlAttributes: new { @class = "form-control" })
+                <span asp-validation-for="DeactivationDate" />
+            </div>
+        </div>*@
+
+            @Html.HiddenFor(x => x.Id)
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-default pull-right">
+                    @Resource.Save
+                </button>
+            </div>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+}
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    //$(document).ready(function () {
+    //    var counter = 0;
+
+    //    $("#addrow").on("click", function () {
+    //        var newRow = $("<tr>");
+    //        var cols = "";
+
+    //        cols += '<td><div class="form-group"><select name = "name" class="form-control select2' + counter + '" ><option selected="selected">Views</option><option>Admin1</option><option>Admin2</option><option>Admin3</option><option>God</option></select></div>'
+
+
+    //        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+    //        newRow.append(cols);
+    //        $("table.order-list").append(newRow);
+    //        counter++;
+    //    });
+
+
+
+    //    $("table.order-list").on("click", ".ibtnDel", function (event) {
+    //        $(this).closest("tr").remove();
+    //        counter -= -1
+    //    });
+
+
+    //});
+
+    $(function () {
+        $("input.uploader").on("change", function () {
+
+            var $input = $(this).parent().find(".input-uploaded");
+            var $image = $(this).parent().find(".image-uploaded");
+
+            var formData = new FormData();
+            formData.append("file", $(this)[0].files[0]);
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("LogoUpload", "User")',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    $input.val(result);
+                    $image.attr("src", result);
+                }
+            });
+        });
+    });
+
+    //function calculateRow(row) {
+    //    var price = +row.find('input[name^="price"]').val();
+
+    //}
+
+    //function calculateGrandTotal() {
+    //    var grandTotal = 0;
+    //    $("table.order-list").find('input[name^="price"]').each(function () {
+    //        grandTotal += +$(this).val();
+    //    });
+    //    $("#grandtotal").text(grandTotal.toFixed(2));
+    //}
+</script>
+
+
+

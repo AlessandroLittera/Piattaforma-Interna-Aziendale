@@ -1,0 +1,38 @@
+﻿@using Models
+@using Vap.Extensions
+@using Models.Resources
+@model User
+@{
+    ViewData["Title"] = "EditUserAccount";
+}
+
+<section class="content-header">
+    <h1>
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Home"><i class="fa fa-dashboard"></i>@Html.ActionLink("Home", "Index", "Home")</a></li>
+        <li><a href="/Home">@Html.ActionLink("List Users", "All", "User")</a></li>
+        <li class="active">@Resource.EditUser</li>
+
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <partial name="_Data" model="Model" />
+                </div>
+                <div class="col-md-6">
+                    <partial name="_Accounts" model="Model.Assignements" />
+                </div>
+                
+            </div>
+        </section>
+    </div>
+</section>
+

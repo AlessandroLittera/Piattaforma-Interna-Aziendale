@@ -1,0 +1,11 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "data source=srv-db-dev;initial catalog=Test42_Copia_Test;persist security info=True;user id=Test42User;password=Test42Password;"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Debug"
+    }
+  },
+  "AllowedHosts": "*"
+}

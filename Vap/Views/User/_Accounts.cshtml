@@ -1,0 +1,161 @@
+﻿@model IEnumerable<Models.Assignement>
+@using Models.Resources
+@{
+    ViewData["Title"] = "ListAccount";
+}
+
+<div class="box box-info">
+    <div class="box-header">
+        <h4> @Resource.ListAccount </h4>
+        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addable-users">
+            @Resource.AddAccount
+        </button>
+
+        @foreach (var person in Model)
+        {
+            <div class="modal fade" id="addable-users" style="display: none;" data-user-id="@person.User.Id">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <h4 class="modal-title">Select Account for this User</h4>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="btnGet" form="formAccount">Save changes</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        }
+
+
+    </div>
+    <!-- /.box-header -->
+    <!-- form start -->
+    <div class="content">
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>@Resource.Email</th>
+                        <th>@Resource.Platform</th>
+                        <th>@Resource.Role</th>
+                        <th>@Resource.Edit</th>
+                        <th>@Resource.Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @using (Html.BeginForm("ListAccountFromUser", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @foreach (var person in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(item => person.Account.Email)</td>
+                                <td>
+                                    <select name="name" class="form-control select2">
+                                        <option selected="selected">@Resource.Platform </option>
+                                        <option>@Resource.Platform 1</option>
+                                        <option>@Resource.Platform 2</option>
+                                        <option>@Resource.Platform 3</option>
+                                    </select>
+                                </td>
+                                <td>@Html.DisplayFor(item => person.Account.AccountType)</td>
+                                <td><a class="btn" href="@Url.Action("Edit", "Account", new { id = person.Account.Id })"><img class="img" src="~/images/edit1.png" width="25" height="25" /></a></td>
+                                <td>
+                                    @if (!person.Account.IsDefault)
+                                    {
+                                        <a data-id="@person.Id" class="btn btn-delete"><img id="img.icon-delete" src="~/images/delete1.jpg" width="25" height="25" /></a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+                <tfoot>
+                    <tr>
+                        <th>@Resource.Email</th>
+                        <th>@Resource.Platform</th>
+                        <th>@Resource.Role</th>
+                        <th>@Resource.Edit</th>
+                        <th>@Resource.Delete</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-default pull-right">
+                @Resource.Save
+            </button>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    $(function () {
+        var myTable = $('table').DataTable();
+        $('table tr .btn-delete').on("click", function () {
+
+            var $this = $(this);
+
+            var prova = confirm("Sicuro di voler eliminare questo utente? ");
+            var id = $this.attr("data-id");
+            if (prova) {
+                $.ajax({
+                    url: '/Account/DeleteAssignement',
+                    type: 'POST',
+                    data: {
+                        "id": id
+                    },
+                    success: (function () {
+
+                        myTable
+                            .row($this.closest('tr'))
+                            .remove()
+                            .draw();
+                    }),
+                })
+
+            }
+
+        });
+
+        $("#addable-users").on('show.bs.modal', function () {
+            var $this = $(this)
+            poldo = $this;
+            var id = $this.attr("data-user-id");
+            $.ajax({
+                url: "@Url.Action("ListAccounts", "User")/" + id,
+                type: 'GET',
+
+                success: function (data) {
+                    console.log("success");
+                    $(".modal#addable-users .modal-body").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+                complete: function () {
+                    console.log("complete");
+                }
+            })
+        });
+    });
+
+</script>
+
+

@@ -1,0 +1,116 @@
+﻿@model IEnumerable<Models.Account>
+@using Models.Resources
+@using Models
+@using Vap.Extensions
+
+@{
+    ViewData["Title"] = "ListAccount";
+}
+
+<div>
+    <section class="content-header">
+        <h1>
+            @Resource.ListAccount
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i><a>@Html.ActionLink("Home", "Index", "Home")</a></li>
+            <li class="active">List Account</li>
+
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h4>
+                            @Resource.ListAccount 
+                                <button class="btn btn-primary pull-right" type="button">@Html.ActionLink(Resource.AddAccount, "NewAccount", "Account")</button>
+                                
+                        </h4>
+
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <div class="content">
+                        <div class="box-body">
+
+
+                            <table id="table" class="table table-bordered table-striped" data-delete-url="/Account/DeleteAccount">
+
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>@Resource.TypeAccount</th>
+                                        <th>@Resource.Platform</th>
+                                        <th>@Resource.Edit</th>
+                                        <th>@Resource.Delete</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @using (Html.BeginForm("ListAccounts", "Account", FormMethod.Post, new { @class = "form-horizontal"}))
+                                    {
+                                        @foreach (var person in Model)
+                                        {
+                                            <tr>
+                                                <td>@Html.DisplayFor(item => person.Nickname)</td>
+                                                <td><text>@Html.DisplayFor(item => person.Email)</text></td>
+                                                <td>@Html.DisplayFor(item => person.AccountType)</td>
+                                                <td>
+                                                    <select name="name" class="form-control select2">
+                                                        <option selected="selected">Piattaforma </option>
+                                                        <option>Piattaforma1</option>
+                                                        <option>Piattaforma2</option>
+                                                        <option>Piattaforma3</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <a 
+                                                       class="btn"
+                                                       href="@Url.Action("Edit", "Account", new { id= person.Id})">
+                                                        <img class="img" src="~/images/edit1.png" width="25" height="25" />
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    @if (!person.IsDefault)
+                                                    {
+                                                        <a data-id="@person.Id" id="buttone" class="btn btn-delete"><img id="img.icon-delete" src="~/images/delete1.jpg" width="25" height="25" /></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a>Account Default</a>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>@Resource.TypeAccount</th>
+                                        <th>@Resource.Platform</th>
+                                        <th>@Resource.Edit</th>
+                                        <th>@Resource.Delete</th>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

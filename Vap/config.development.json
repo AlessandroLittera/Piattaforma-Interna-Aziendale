@@ -1,0 +1,13 @@
+{
+
+  "ConnectionStrings": {
+    "DefaultConnection": "data source=srv-db-dev;initial catalog=Test42;persist security info=True;user id=Test42User;password=Test42Password;",
+    "CloudConnection": "DefaultEndpointsProtocol=https;AccountName=vapdev;AccountKey=28hpcto4rpAQJcK/Zqmk5sa1Qm6OaKODliNulnwLl7FYcNBFeoGa5WKcaGYcHT0k1Q2oTYyCVmyhMCry2UetXA==;EndpointSuffix=core.windows.net"
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}

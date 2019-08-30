@@ -1,0 +1,121 @@
+﻿@model Models.Account
+
+@{
+    ViewData["Title"] = "EditAccount";
+}
+
+
+@using (Html.BeginForm("EditAccountView", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Edit Utent :  @Html.DisplayTextFor(x => x.Email) </h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Html.LabelFor(x => x.Email)</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", disabled = "true" })
+                    <span asp-validation-for="Email" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Html.LabelFor(x => x.Nickname)</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.Nickname, new { @class = "form-control", disabled = "true" })
+                    <span asp-validation-for="Nickname" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">Account</span></label>
+                <div class="col-sm-10">
+                    @Html.DropDownListFor(x => x.AccountType, Html.GetEnumSelectList(typeof(Models.AccountantTypes)), new { @class = "chosen" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">Piattaforma</span></label>
+                <div class="col-sm-10">
+                    <select name="name" class="form-control select2" disabled="disabled">
+                        <option selected="selected">Piattaforma </option>
+                        <option>Piattaforma1</option>
+                        <option>Piattaforma2</option>
+                        <option>Piattaforma3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"><span class="input-group-text" id="inputGroup-sizing-default">@Html.LabelFor(x => x.CreationDate)</span></label>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(x => x.CreationDate, new { @class = "form-control", disabled = "true" })
+                    <span asp-validation-for="CreationDate" />
+                </div>
+            </div>
+            
+
+            @Html.HiddenFor(x => x.Id)
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-default pull-right">
+                    Salvami
+                </button>
+            </div>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+}
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        var counter = 0;
+
+        $("#addrow").on("click", function () {
+            var newRow = $("<tr>");
+            var cols = "";
+
+            cols += '<td><div class="form-group"><select name = "name" class="form-control select2' + counter + '" ><option selected="selected">Views</option><option>Admin1</option><option>Admin2</option><option>Admin3</option><option>God</option></select></div>'
+
+
+            cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+            newRow.append(cols);
+            $("table.order-list").append(newRow);
+            counter++;
+        });
+
+
+
+        $("table.order-list").on("click", ".ibtnDel", function (event) {
+            $(this).closest("tr").remove();
+            counter -= -1
+        });
+
+
+    });
+
+
+
+    function calculateRow(row) {
+        var price = +row.find('input[name^="price"]').val();
+
+    }
+
+    function calculateGrandTotal() {
+        var grandTotal = 0;
+        $("table.order-list").find('input[name^="price"]').each(function () {
+            grandTotal += +$(this).val();
+        });
+        $("#grandtotal").text(grandTotal.toFixed(2));
+    }
+</script>
