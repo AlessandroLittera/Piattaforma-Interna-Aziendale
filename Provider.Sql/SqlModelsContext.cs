@@ -16,7 +16,7 @@ namespace Provider.Sql
         {
             var optionsBuilder = new DbContextOptionsBuilder<SqlModelsContext>();
             optionsBuilder.UseLazyLoadingProxies();
-            optionsBuilder.UseSqlServer(@"data source=srv-db-dev;initial catalog=Test42;persist security info=True;user id=Test42User;password=Test42Password;");
+            optionsBuilder.UseSqlServer(@"Server=tcp:lillo-server.database.windows.net,1433;Initial Catalog=AzureDb;Persist Security Info=False;User ID=Lillo;Password=Oronzo123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             return optionsBuilder.Options;
         }
         //private DbContextOptionsBuilder test = new DbContextOptionsBuilder<SqlModelsContext>(new DbContextOptions<SqlModelsContext>(""));
@@ -35,7 +35,7 @@ namespace Provider.Sql
         public DbSet<SqlAssignement> SqlAssignements { get; set; }
         public DbSet<SqlAccount> SqlAccounts { get; set; }
        
-        public DbSet<SqlRequest> SqlContexts { get; set; }
+        public DbSet<SqlRequest> SqlRequests { get; set; }
       
         public DbSet<SqlStandard> SqlStandards { get; set; }
        
@@ -58,6 +58,8 @@ namespace Provider.Sql
             });
           
           //mettere quelli per le request
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

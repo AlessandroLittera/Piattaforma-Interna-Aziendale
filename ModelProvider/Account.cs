@@ -12,7 +12,6 @@ namespace Models
 {
     public abstract class Account
     {
-        public const string God = "God";
 
         public Account()
         {
@@ -20,16 +19,12 @@ namespace Models
             Assignements = new HashSet<Assignement>();
         }
         public string Id { get; set; }
-
         [Required]
         public string Nickname { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Title is required.")]
-        public bool IsMailingList { get; set; }
-
+        public string Password { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime? DeactivationDate { get; set; }
         public DateTime LastEdit { get; set; }
