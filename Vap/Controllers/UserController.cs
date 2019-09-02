@@ -104,18 +104,7 @@ namespace Vap.Controllers
             //    await HttpContext.SignInAsync(User);
             return View(user);
         }
-        public async Task<IActionResult> RequestAuto()
-        {
-            ICollection<User> user = await userHelper.UsersAsync();
-            //    await HttpContext.SignInAsync(User);
-            return View(user);
-        }
-        public async Task<IActionResult> RequestTrasf()
-        {
-            ICollection<User> user = await userHelper.UsersAsync();
-            //    await HttpContext.SignInAsync(User);
-            return View(user);
-        }
+        
         [HttpPost]
         public async Task<IActionResult> DeleteConfirm(User u)
         {
