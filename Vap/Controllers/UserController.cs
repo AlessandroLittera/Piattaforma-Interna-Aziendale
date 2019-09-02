@@ -59,7 +59,7 @@ namespace Vap.Controllers
             await Task.Delay(0);
             Assignement assignement = new Assignement
             {
-                Account = Account.GetInstanceOf(AccountantTypes.DPO)
+                Account = Account.GetInstanceOf(AccountantTypes.Admin)
             };
             
             return View(mapper.Map<CreateUser>(assignement));
@@ -71,10 +71,7 @@ namespace Vap.Controllers
         {
 
             var assignment = mapper.Map<Assignement>(createUser);
-            //assignment.User = mapper.Map<User>(createUser);
-            //assignment.Account = Account.GetInstanceOf(createUser.AccountType.ToString());
-            //assignment.Account.Email = createUser.Email;
-
+    
             var a = await resolutorFacade.CreateUserAndDefaultAccount(assignment);
             return RedirectToAction("All");
 
@@ -107,7 +104,6 @@ namespace Vap.Controllers
             //    await HttpContext.SignInAsync(User);
             return View(user);
         }
-
         [HttpPost]
         public async Task<IActionResult> DeleteConfirm(User u)
         {

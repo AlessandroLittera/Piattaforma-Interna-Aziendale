@@ -244,7 +244,7 @@ namespace Vap
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=User}/{action=All}/{id= UrlParameter.Optional}");
+                    template: "{controller=Login}/{action=Login}/{id= UrlParameter.Optional}");
             });
 
 
