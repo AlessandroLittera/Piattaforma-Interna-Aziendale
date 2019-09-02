@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
@@ -15,17 +12,12 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Owin.Security.OAuth;
 using Models;
 using Models.Interfaces.Helpers;
 using Models.Interfaces.Providers;
@@ -35,6 +27,7 @@ using Provider.Sql;
 using Provider.Sql.SqlProviders;
 using Provider.Sql.SqlProviders.SqlContextesProvider;
 using Vap.Extensions;
+
 using Vap.Profile;
 using IModelBinder = Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder;
 using IModelBinderProvider = Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderProvider;
@@ -44,9 +37,11 @@ namespace Vap
     public class Startup
     {
 
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static string PublicClientId { get; private set; }
         public Startup(IConfiguration configuration)
         {
-
+            PublicClientId = "web";
             this.Configuration = configuration;
 
         }
@@ -55,7 +50,7 @@ namespace Vap
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+            {
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -69,12 +64,7 @@ namespace Vap
             services.AddScoped<IAccountHelper, WebAccountHelper>();
             services.AddScoped<IAccountProvider, SqlAccountProvider>();
             services.AddScoped<IResolutorFacade, ResolutorFacade>();
-            services.AddScoped<IAreaHelper, WebAreaHelper>();
-            services.AddScoped<IAreaProvider, SqlAreaProvider>();
-            services.AddScoped<IRoleProvider, SqlRoleProvider>();
-            services.AddScoped<ITechnologyHelper,WebTechnologyHelper>();
-            services.AddScoped<ITechnologyProvider,SqlTechnologyProvider>();
-            services.AddScoped<IFileService,BlobService>();
+            services.AddScoped<IFileService, BlobService>();
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -90,28 +80,44 @@ namespace Vap
             var connectionBlobCloud = Configuration.GetConnectionString("CloudConnection");
 
 
-         /*   string storageConnectionString = Environment.GetEnvironmentVariable("DefaultEndpointsProtocol=https;AccountName=vapdev;AccountKey=28hpcto4rpAQJcK/Zqmk5sa1Qm6OaKODliNulnwLl7FYcNBFeoGa5WKcaGYcHT0k1Q2oTYyCVmyhMCry2UetXA==;EndpointSuffix=core.windows.net");
+            /*   string storageConnectionString = Environment.GetEnvironmentVariable("DefaultEndpointsProtocol=https;AccountName=vapdev;AccountKey=28hpcto4rpAQJcK/Zqmk5sa1Qm6OaKODliNulnwLl7FYcNBFeoGa5WKcaGYcHT0k1Q2oTYyCVmyhMCry2UetXA==;EndpointSuffix=core.windows.net");
 
-            // Check whether the connection string can be parsed.
-            CloudStorageAccount storageAccount;
-            if (CloudStorageAccount.TryParse(storageConnectionString, out storageAccount))
-            {
-            }
-            else
-            {
-                // Otherwise, let the user know that they need to define the environment variable.
-                Console.WriteLine(
-                    "A connection string has not been defined in the system environment variables. " +
-                    "Add an environment variable named 'storageconnectionstring' with your storage " +
-                    "connection string as a value.");
-                Console.WriteLine("Press any key to exit the sample application.");
-                Console.ReadLine();
-            }
-            */
+               // Check whether the connection string can be parsed.
+               CloudStorageAccount storageAccount;
+               if (CloudStorageAccount.TryParse(storageConnectionString, out storageAccount))
+               {
+               }
+               else
+               {
+                   // Otherwise, let the user know that they need to define the environment variable.
+                   Console.WriteLine(
+                       "A connection string has not been defined in the system environment variables. " +
+                       "Add an environment variable named 'storageconnectionstring' with your storage " +
+                       "connection string as a value.");
+                   Console.WriteLine("Press any key to exit the sample application.");
+                   Console.ReadLine();
+               }
+               */
 
 
             //var connection = @"data source=srv-db-dev;initial catalog=Test42;persist security info=True;user id=Test42User;password=Test42Password;";
             //var testConnectionString = @"data source=srv-db-dev;initial catalog=Test42_Copia_Test;persist security info=True;user id=Test42User;password=Test42Password;";
+            //OAuthAuthorizationServerOptions oAuthAuthorizationServerOptions = new OAuthAuthorizationServerOptions()
+            //{
+
+            //    AllowInsecureHttp = true,
+            //    TokenEndpointPath = new PathString("/token"),
+            //    AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+            //    Provider = new ApplicationOAuthProviderApi(),
+            //    AuthorizeEndpointPath = new PathString("/api/AccountApi/login"),
+            //    ApplicationCanDisplayErrors = true,
+
+            //    RefreshTokenProvider = new SimpleRefreshTokenProvider(),
+            //    AccessTokenFormat = new CustomJwtFormat(), //localhost?
+
+
+            //};
+            //services.AddAuthentication().AddOAuth("", services => Oa);
             services.AddDbContext<SqlModelsContext>
                 (options => options
                            .UseLazyLoadingProxies()
@@ -123,7 +129,7 @@ namespace Vap
                 options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             })
-            .AddOpenIdConnect((Action<OpenIdConnectOptions>)(options  =>
+            .AddOpenIdConnect((Action<OpenIdConnectOptions>)(options =>
             {
                 options.Authority = "https://login.microsoftonline.com/99169c38-99a6-4511-9596-51869cca9f6e";  //endpoint OIDC che voglio utilizzare ok
                 options.ClientId = "10415ac4-186b-4ce6-954a-e234a72f0dd0";    //ok
@@ -155,7 +161,7 @@ namespace Vap
 
                       var accounts = user.Assignements.Select(x => x.Account);
 
-                      if(accounts.Count() == 0)
+                      if (accounts.Count() == 0)
                       {
                           throw new Exception(Resource.not_authorized);
                       }
@@ -170,7 +176,7 @@ namespace Vap
 
 
                       var defaultAccount = accounts.FirstOrDefault(x => x.IsDefault);
-                      if(defaultAccount == null)
+                      if (defaultAccount == null)
                       {
                           defaultAccount = accounts.FirstOrDefault();
                       }
@@ -184,9 +190,9 @@ namespace Vap
                       //}
 
                       claims.AddClaim(new Claim(ClaimTypes.Role, Enum.GetName(typeof(AccountantTypes), defaultAccount.AccountType)));
-                  
+
                       claims.AddClaim(new Claim("selectedAccount", JsonConvert.SerializeObject(defaultAccount)));
-                      
+
                       ctx.Principal.AddIdentity(claims);
 
                   };
@@ -202,14 +208,15 @@ namespace Vap
                 o.ResourcesPath = "Resources";
             });
             services.AddMvc(
-            options => {
+            options =>
+            {
                 options.ModelBinderProviders.Insert(0, new MyBinderProvider());
 
                 options.AllowValidatingTopLevelNodes = false;
 
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            
+
 
 
 
@@ -239,7 +246,7 @@ namespace Vap
                     name: "default",
                     template: "{controller=User}/{action=All}/{id= UrlParameter.Optional}");
             });
-           
+
 
 
         }

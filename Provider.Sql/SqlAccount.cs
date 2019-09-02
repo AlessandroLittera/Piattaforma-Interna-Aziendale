@@ -25,14 +25,14 @@ namespace Provider.Sql
         public DateTime? DeactivationDate { get; set; }
         public DateTime LastEdit { get; set; }
         public virtual ICollection<SqlAssignement> SqlAssignements { get; set; }
-        public virtual ICollection<SqlRole> SqlRoles { get; set; }
+       
 
         
        
 
         public SqlAccount()
         {
-            this.SqlRoles = new HashSet<SqlRole>();
+           
             this.IsMailingList = false;
             this.SqlAssignements = new HashSet<SqlAssignement>();
             this.Nickname = string.Empty;

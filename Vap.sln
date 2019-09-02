@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provider.Sql", "Provider.Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper.Web", "Helper.Web\Helper.Web.csproj", "{2F5BE201-5722-4A29-96CD-9556A01E45EA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{334612A6-F3C6-46E8-8125-BE78AA4E967B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{334612A6-F3C6-46E8-8125-BE78AA4E967B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{334612A6-F3C6-46E8-8125-BE78AA4E967B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{334612A6-F3C6-46E8-8125-BE78AA4E967B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{334612A6-F3C6-46E8-8125-BE78AA4E967B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

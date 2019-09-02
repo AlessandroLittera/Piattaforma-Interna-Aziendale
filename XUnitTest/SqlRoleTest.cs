@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
-using Models.Contextes;
 using System.Linq;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
@@ -94,7 +93,7 @@ namespace XUnitTest
             //};
 
             var areas = await areaProvider.AreasAsync();
-            Context context = areas.FirstOrDefault(x => x.Roles.Any(y => y.DeactivationDate == null));
+            Request context = areas.FirstOrDefault(x => x.Roles.Any(y => y.DeactivationDate == null));
 
             var roles = await roleProvider.RoleFromContextAsync(context);
 

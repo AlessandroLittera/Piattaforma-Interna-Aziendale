@@ -58,7 +58,7 @@ namespace Provider.Sql.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("SqlAccountType");
                 });
 
-            modelBuilder.Entity("Provider.Sql.SqlContextes.SqlContext", b =>
+            modelBuilder.Entity("Provider.Sql.SqlContextes.SqlRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace Provider.Sql.Migrations
 
                     b.ToTable("SqlContexts");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("SqlContext");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("SqlRequest");
                 });
 
             modelBuilder.Entity("Provider.Sql.SqlPossibleRole", b =>
@@ -167,7 +167,7 @@ namespace Provider.Sql.Migrations
 
             modelBuilder.Entity("Provider.Sql.SqlContextes.SqlApplication", b =>
                 {
-                    b.HasBaseType("Provider.Sql.SqlContextes.SqlContext");
+                    b.HasBaseType("Provider.Sql.SqlContextes.SqlRequest");
 
                     b.Property<int?>("SqlAreaId");
 
@@ -182,14 +182,14 @@ namespace Provider.Sql.Migrations
 
             modelBuilder.Entity("Provider.Sql.SqlContextes.SqlArea", b =>
                 {
-                    b.HasBaseType("Provider.Sql.SqlContextes.SqlContext");
+                    b.HasBaseType("Provider.Sql.SqlContextes.SqlRequest");
 
                     b.HasDiscriminator().HasValue("SqlArea");
                 });
 
             modelBuilder.Entity("Provider.Sql.SqlContextes.SqlTechnology", b =>
                 {
-                    b.HasBaseType("Provider.Sql.SqlContextes.SqlContext");
+                    b.HasBaseType("Provider.Sql.SqlContextes.SqlRequest");
 
                     b.HasDiscriminator().HasValue("SqlTechnology");
                 });
@@ -203,7 +203,7 @@ namespace Provider.Sql.Migrations
 
             modelBuilder.Entity("Provider.Sql.SqlPossibleRole", b =>
                 {
-                    b.HasOne("Provider.Sql.SqlContextes.SqlContext", "SqlContext")
+                    b.HasOne("Provider.Sql.SqlContextes.SqlRequest", "SqlRequest")
                         .WithMany("SqlPossibleRoles")
                         .HasForeignKey("SqlContextId");
                 });
@@ -214,7 +214,7 @@ namespace Provider.Sql.Migrations
                         .WithMany("SqlRoles")
                         .HasForeignKey("SqlAccountId");
 
-                    b.HasOne("Provider.Sql.SqlContextes.SqlContext", "SqlContext")
+                    b.HasOne("Provider.Sql.SqlContextes.SqlRequest", "SqlRequest")
                         .WithMany("SqlRoles")
                         .HasForeignKey("SqlContextId");
 

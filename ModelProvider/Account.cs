@@ -16,7 +16,7 @@ namespace Models
 
         public Account()
         {
-            this.Roles = new HashSet<Role>();
+
             Assignements = new HashSet<Assignement>();
         }
         public string Id { get; set; }
@@ -37,7 +37,6 @@ namespace Models
         public ICollection<Assignement> Assignements { get; set; }
 
 
-        public ICollection<Role> Roles { get; set; }
 
         [Required]
         public abstract AccountantTypes AccountType { get; }
@@ -57,14 +56,9 @@ namespace Models
         {
             switch (type)
             {
-                case AccountantTypes.DPO:
-                    return new DPO();
-                case AccountantTypes.RSGSI:
-                    return new RSGSI();
-                case AccountantTypes.Stakeholder:
-                    return new StakeHolder();
-                case AccountantTypes.God:
-                    return new God();
+                case AccountantTypes.Admin:
+                    return new Admin();
+               
                 default:
                     return new Standard();
             }
@@ -75,11 +69,8 @@ namespace Models
 
     public enum AccountantTypes
     {
-        DPO = 0,
-        Stakeholder = 1,
-        Standard = 2,
-        RSGSI = 3,
-        God = 4
+        Admin = 0,
+        Standard= 1,
     }
 
 

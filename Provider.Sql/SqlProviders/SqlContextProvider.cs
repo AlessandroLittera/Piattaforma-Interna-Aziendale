@@ -1,4 +1,4 @@
-﻿using Models.Contextes;
+﻿
 using Models.Interfaces.Providers;
 using System.Linq;
 using System;
@@ -6,35 +6,36 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Provider.Sql.SqlContextes;
+using Provider.Sql;
+using Models;
 
 namespace Provider.Sql.SqlProviders.SqlContextesProvider
 {
-    public class SqlContextProvider : IContextProvider
+    public class SqlRequestProvider : IRequestProvider
     {
         private SqlModelsContext dbcontext;
         private IMapper mapper;
-        public SqlContextProvider(SqlModelsContext sqlModelsContext, IMapper mapper)
+        public SqlRequestProvider(SqlModelsContext sqlModelsContext, IMapper mapper)
         {
             this.mapper = mapper;
             this.dbcontext = sqlModelsContext;
         }
-        public async Task<ICollection<Context>> ContextsAsync()
+        public async Task<ICollection<Request>> RequestsAsync()
         {
             await Task.Delay(0);
-            return mapper.Map<List<Context>>(dbcontext.SqlContexts);
+            return mapper.Map<List<Request>>(dbcontext.SqlContexts);
         }
 
-        public async Task<Context> CreateContextAsync(Context context)
+        public async Task<Request> CreateRequestAsync(Request context)
         {
             ObjectEmpty(context);
-            var sqlContext = mapper.Map<SqlContext>(context);
+            var sqlContext = mapper.Map<SqlRequest>(context);
             dbcontext.SqlContexts.Add(sqlContext);
             await dbcontext.SaveChangesAsync();
-            return mapper.Map<Context>(sqlContext);
+            return mapper.Map<Request>(sqlContext);
         }
 
-        public async Task<bool> DeleteAsync(Context context)
+        public async Task<bool> DeleteAsync(Request context)
         {
             ObjectEmpty(context);
             if (int.TryParse(context.Id, out int idContext))
@@ -48,7 +49,7 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
             throw new NullReferenceException();
         }
 
-        public async Task<Context> EditAsync(Context context)
+        public async Task<Request> EditAsync(Request context)
         {
             ObjectEmpty(context);
             if (int.TryParse(context.Id, out int idContext))
@@ -57,7 +58,7 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
                 ObjectEmpty(sqlContext);
                 mapper.Map(sqlContext, context);
                 await dbcontext.SaveChangesAsync();
-                return mapper.Map<Context>(sqlContext);
+                return mapper.Map<Request>(sqlContext);
 
 
             }
