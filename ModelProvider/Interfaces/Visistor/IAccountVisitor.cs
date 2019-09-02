@@ -9,5 +9,7 @@ namespace Models.Interfaces.Visistor
     public interface IAccountVisitor<L, T>
     {
         Task<L> DoStuffAsync(Standard account, T item);
+        Task<L> DoStuffAsync(Admin account, T item);
+       
     }
 }
