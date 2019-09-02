@@ -16,7 +16,7 @@ namespace Provider.Sql
         {
             var optionsBuilder = new DbContextOptionsBuilder<SqlModelsContext>();
             optionsBuilder.UseLazyLoadingProxies();
-         //   optionsBuilder.UseSqlServer(@"data source=srv-db-dev;initial catalog=Test42;persist security info=True;user id=Test42User;password=Test42Password;");
+            optionsBuilder.UseSqlServer(@"data source=srv-db-dev;initial catalog=Test42;persist security info=True;user id=Test42User;password=Test42Password;");
             return optionsBuilder.Options;
         }
         //private DbContextOptionsBuilder test = new DbContextOptionsBuilder<SqlModelsContext>(new DbContextOptions<SqlModelsContext>(""));
