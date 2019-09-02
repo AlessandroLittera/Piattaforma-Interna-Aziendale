@@ -1,0 +1,348 @@
+﻿@using  System.Security.Claims
+@using Models.Resources
+@using Models
+@using Vap.Extensions
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <title>@ViewData["Title"] - Vap</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- AdminLTE for Table-->
+    <link rel="stylesheet" href="~/css/fullcalendar.min.css" />
+    <link rel="stylesheet" href="~/css/fullcalendar.print.min.css" media="print"/>
+    @*  <link href="~/lib/adminlte/css/bootstrap.min.css" />*@
+    <link href="~/lib/adminlte/css/AdminLTE.min.css" />
+    <!-- Datatable -->
+    @*<link href="~/lib/adminlte/css/dataTables.bootstrap.css" />*@
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
+    <!-- Chosen -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/css/Sidebar.css" />
+
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <a class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b></b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Polimi</b></span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbar-collapse">
+                        <!--<ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Admin LTE", "Index", "Home")</li>
+
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li class="dropdown">@Html.ActionLink("List User", "All", "User")</li>
+
+                        </ul>-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown messages-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span class="label label-success">1</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have 1 messages</li>
+                                    <li>
+                                        <!-- inner menu: contains the actual data -->
+                                        <ul class="menu">
+                                            <li>
+                                                <!-- start message -->
+                                                <a href="#">
+                                                    <h4>
+                                                        Support Team
+                                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                    </h4>
+                                                    <p>Benvenuto</p>
+                                                </a>
+                                            </li>
+                                            <!-- end message -->
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a href="#">See All Messages</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown user user-menu">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    @*<img src="@(((ClaimsIdentity)User.Identities.FirstOrDefault(x => x.AuthenticationType == "authenticationType")).FindFirst(ClaimTypes.Thumbprint).Value)" class="user-image" alt="User Image">*@
+                                    <span class="hidden-xs">@User.Identity.Name</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        @*<img src="@(((ClaimsIdentity)User.Identities.FirstOrDefault(x => x.AuthenticationType == "authenticationType")).FindFirst(ClaimTypes.Thumbprint).Value)" class="img-circle" alt="User Image">*@
+                                        <p>
+                                            @*<small>Member</small>@User.FindFirst(ClaimTypes.GivenName).Value*@
+
+
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="/User/Profile" class="btn btn-default btn-flat">@Resource.Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="/Auth/Logout" class="btn btn-default btn-flat">Logout</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!--<form class="navbar-form navbar-left" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+                            </div>
+                        </form>-->
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section id="sidebar" class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        @* <img src="@(((ClaimsIdentity)User.Identities.FirstOrDefault(x => x.AuthenticationType == "authenticationType")).FindFirst(ClaimTypes.Thumbprint).Value)" class="user-image img-circle" alt="User Image">*@
+                    </div>
+                    <div class="pull-left info">
+                        @*<p>@User.FindFirst(ClaimTypes.GivenName).Value @User.FindFirst(ClaimTypes.Surname).Value</p>*@
+                    </div>
+                </div>
+                <!-- search form -->
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <li class="header">NAVIGATION</li>
+                    <li class="treeview" data-ng-controller="user">
+                        <a href="#">
+                            <i class="fa fa-user"></i><span>User</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("All", "User")" title="List View"><i class="fa fa-list-ul"></i> @Resource.ListAllUser</a></li>
+                            <li><a href="@Url.Action("NewUser", "User")" title="List View"><i class="fa fa-user-plus"></i> @Resource.NewUser</a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview" data-ng-controller="account">
+                        <a href="#">
+                            <i class="fa fa-laptop"></i>
+                            <span>Account</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("ListAccounts", "Account")" title="List View"><i class="fa fa-list-ul">  </i>  @Resource.ListAccount </a></li>
+                            <li><a href="@Url.Action("NewAccount", "Account")" title="List View"><i class="fa fa-plus-circle"> </i>  @Resource.AddAccount </a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview" data-ng-controller="user">
+                        <a href="#">
+                            <i class="fa fa-cubes"></i>
+                            <span>Permessi Trasferte</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("RequestTrasf", "User")" title="List View"><i class="fa fa-list-ul">  </i>  Richieste </a></li>
+                        </ul>
+                    </li>
+                    <li class="treeview" data-ng-controller="user">
+                        <a href="#">
+                            <i class="fa fa-car"></i>
+                            <span>Gestione automobili</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("RequestAuto", "User")" title="List View"><i class="fa fa-list-ul">  </i>  Richieste </a></li>
+                        </ul>
+
+                        @*<li class="header">LABELS</li>
+                            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Important</span></a></li>
+                            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Warning</span></a></li>
+                            <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Information</span></a></li>*@
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-user bg-yellow"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                                    <p>New phone +1(800)555-1234</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                                    <p>nora@example.com</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                                    <p>Execution time 5 seconds</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Allow mail redirect
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Other sets of options are available
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Expose author name in posts
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Allow the user to show his name in blog posts
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                        <h3 class="control-sidebar-heading">Chat Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Show me as online
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Turn off notifications
+                                <input type="checkbox" class="pull-right">
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Delete chat history
+                                <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                            </label>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="~/lib/adminlte/js/adminlte.js"></script>
+    <script src="~/lib/adminlte/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/lib/adminlte/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/js/fullcalendar.min.js"></script>
+    <script src="~/js/moment.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    <div class="content-wrapper">
+        @RenderBody()
+        <hr />
+    </div>
+
+    <script>
+        $(function () {
+           // console.log("AAAA ");
+
+            var controllerName = '@Html.Raw(this.ViewContext.RouteData.Values["controller"].ToString())'
+          //  console.log("AAAA " + controllerName);
+            $("li[data-ng-controller='" + controllerName.toLowerCase() + "']").addClass("active");
+        });
+
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

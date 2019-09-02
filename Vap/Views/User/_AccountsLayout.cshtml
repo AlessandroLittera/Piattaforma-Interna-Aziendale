@@ -1,0 +1,75 @@
+﻿@using  System.Security.Claims
+@using Models
+@{
+    ViewData["Title"] = "ListAccount";
+}
+
+
+@using (Html.BeginForm("ListAccountFromUser", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    
+       
+            @*@Html.DropDownListFor(x=> person.Account.Email,"che cazzo gli aggiungo?")*@
+           
+            @Html.DropDownList(User.FindFirst(ClaimTypes.Upn).Value)
+      
+    
+}
+
+
+<script>
+    $(function () {
+        var myTable = $('table').DataTable();
+        $('table tr .btn-delete').on("click", function () {
+
+            var $this = $(this);
+
+            var prova = confirm("Sicuro di voler eliminare questo utente? ");
+            var id = $this.attr("data-id");
+            if (prova) {
+                $.ajax({
+                    url: '/Account/DeleteAssignement',
+                    type: 'POST',
+                    data: {
+                        "id": id
+                    },
+                    success: (function () {
+
+                        myTable
+                            .row($this.closest('tr'))
+                            .remove()
+                            .draw();
+                    }),
+                })
+
+            }
+
+        });
+
+        $("#addable-users").on('show.bs.modal', function () {
+            var $this = $(this)
+            var id = $this.attr("data-id");
+            $.ajax({
+                url: @Html.Raw("'/User/ListAccounts/"+ ViewBag.UserId+"'"),
+                type: 'GET',
+                data: {
+                    "id": id
+                },
+                success: function (data) {
+                    console.log("success");
+                    $(".modal#addable-users .modal-body").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+                complete: function () {
+                    console.log("complete");
+                }
+            })
+        });
+    });
+
+</script>
+
+

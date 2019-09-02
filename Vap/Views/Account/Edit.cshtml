@@ -1,0 +1,51 @@
+﻿@using Models
+@using Vap.Extensions
+
+@model Account
+@{
+    ViewData["Title"] = "EditUserAccount";
+}
+
+<section class="content-header">
+    <h1>
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("List Accounts", "ListAccounts", "Account")</li>
+        <li class="active">Edit User</li>
+
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+
+
+        <section class="content">
+            <div class="row">
+                <div class="col-md-6">
+                    <partial name="_Data" model="Model" />
+                </div>
+                <div class="col-md-6">
+                    <partial name="_Users" model="Model" />
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+<script>
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging': true,
+            'lengthChange': false,
+            'searching': false,
+            'ordering': true,
+            'info': true,
+            'autoWidth': false
+        })
+    })
+</script>
+

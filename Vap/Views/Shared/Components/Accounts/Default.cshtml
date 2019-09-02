@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Models.Account>
+
+@{
+    Layout = null;
+}
+
+
+@foreach (var item in Model)
+{
+    <option value="@item.Id" >
+        @Html.Raw(item.Email)
+    </option>
+
+}

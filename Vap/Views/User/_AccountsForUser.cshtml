@@ -1,0 +1,48 @@
+﻿@using Models
+@model ListAccountsForUser
+@using (Html.BeginForm("SaveAssignement", "User", FormMethod.Post, new { id = "formAccount" }))
+{
+    @Html.Hidden("userId", Model.user.Id)
+    <div class="box-body">
+        <table id="table1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Add</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @foreach (var person in Model.Accounts)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(item => person.Email)</td>
+                        <td>
+                            <input type="checkbox" class="ads_Checkbox" id="accountsId" name="accountsId" value="@person.Id" />
+                        </td>
+                        <!--</td>-->
+                    </tr>
+                }
+
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Email</th>
+                    <th>Add</th>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+}
+
+<script>
+    $(function () {
+            var myTable = $('table').DataTable();
+    })
+
+
+</script>

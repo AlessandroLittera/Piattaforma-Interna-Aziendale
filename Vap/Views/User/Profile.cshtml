@@ -1,0 +1,63 @@
+﻿@using Models
+@using Vap.Extensions
+@using Models.Resources
+@model User
+@using  System.Security.Claims
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="content">
+
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <section class="content-header">
+                    <h1>
+                        User Profile
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li class="fa fa-dashboard">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="active">User profile</li>
+                    </ol>
+                </section>
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    @using (Html.BeginForm("Profile", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="box-body box-profile">
+                            <img class="profile-user-img img-responsive img-circle" src=" @(((ClaimsIdentity)User.Identities.FirstOrDefault(x => x.AuthenticationType == "authenticationType")).FindFirst(ClaimTypes.Thumbprint).Value)" alt="User profile picture">
+                            <h3 class="profile-username text-center"></h3>
+                            <p class="text-muted text-center">Collaborator Vetrya</p>
+                            <ul class="list-group list-group-unbordered">
+                                <li class="list-group-item">
+                                    <b>Name</b> <a class="pull-right">@User.FindFirst(ClaimTypes.GivenName).Value</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Surname</b> <a class="pull-right">@User.FindFirst(ClaimTypes.Surname).Value</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Email default</b> <a class="pull-right">@User.Identity.Name</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Password</b> <a class="pull-right">********</a>
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-primary btn-block"><b>Modifica Password Account</b></a>
+                        </div>
+                    }
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- About Me Box -->
+                <!-- /.box -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <partial name="_Accounts" model="Model.Assignements" />
+        </div>
+    </div>
+</div>
+
