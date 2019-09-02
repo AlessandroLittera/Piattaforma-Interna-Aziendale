@@ -59,7 +59,7 @@ namespace Vap.Controllers
             await Task.Delay(0);
             Assignement assignement = new Assignement
             {
-                Account = Account.GetInstanceOf(AccountantTypes.DPO)
+                Account = Account.GetInstanceOf(AccountantTypes.Admin)
             };
             
             return View(mapper.Map<CreateUser>(assignement));

@@ -113,9 +113,7 @@ namespace Vap.Controllers
             // non  bello il modo in cui setto i valori e poi il passaggio con user
             List<SelectListItem> items = new List<SelectListItem>
             {
-                new SelectListItem("DPO", AccountantTypes.DPO.ToString()),
-                new SelectListItem("StakeHolder", AccountantTypes.Stakeholder.ToString()),
-                new SelectListItem("RSGSI", AccountantTypes.RSGSI.ToString()),
+                new SelectListItem("ADMIN", AccountantTypes.Admin.ToString()),
                 new SelectListItem("Standard", AccountantTypes.Standard.ToString())
             };
             SelectList li = new SelectList(items);

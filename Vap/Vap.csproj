@@ -39,6 +39,7 @@
   <ItemGroup>
     <Folder Include="Binders\" />
     <Folder Include="Cloud\" />
+    <Folder Include="ViewComponents\" />
     <Folder Include="wwwroot\images\user\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
