@@ -26,35 +26,51 @@ namespace Vap.Controllers
         readonly IAccountHelper accountHelper;
         readonly IUserHelper userHelper;
         private IMapper mapper;
-        private readonly SignInManager<IdentityUser> signInManager;
-        public AccountController(IAccountHelper accountHelper, SignInManager<IdentityUser> signInManager, IUserHelper userHelper, IMapper mapper)
+        public AccountController(IAccountHelper accountHelper, IUserHelper userHelper, IMapper mapper)
         {
             this.accountHelper = accountHelper;
             this.userHelper = userHelper;
             this.mapper = mapper;
-            this.signInManager = signInManager;
         }
-        [HttpGet]
-        public IActionResult Login()
+
+        public IActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+        
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("All", "User");
-                }
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                return View(model);
             }
-            return View(model);
-        }
 
+            if (model.Email == null || model.Password == null)
+            {
+                return View("Login", "Account");
+            }
+
+            //User userDto = await _accountHelper.RetrieveUserAsync(model.Email, model.Password);
+            //if (userDto == null)
+            //{
+            //    ModelState.AddModelError("", "Errore");
+            //    return View(model);
+            //}
+            
+
+            if (returnUrl != "/" && !string.IsNullOrWhiteSpace(returnUrl) && !(returnUrl.ToLower().StartsWith("http://") || returnUrl.ToLower().StartsWith("https://")))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                
+                return RedirectToAction("Dashboard1", "Home");
+                
+            }
+        }
         public async Task<IActionResult> Edit(string id)
         {
             List<SelectListItem> items = new List<SelectListItem>
@@ -98,10 +114,10 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> ListUsers(string id)
         {
-           // ViewBag.AccountId = id;
+            // ViewBag.AccountId = id;
             ListUsersForAccount list = new ListUsersForAccount();
             list.Users = await accountHelper.UsersNotPresentAsync(id);
-            list.account = await accountHelper.GetById(id); 
+            list.account = await accountHelper.GetById(id);
             return PartialView("_UsersForAccount", list);
         }
 

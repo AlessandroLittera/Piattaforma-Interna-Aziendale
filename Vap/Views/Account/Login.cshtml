@@ -6,38 +6,101 @@
     Layout = "~/Views/Shared/_Login.cshtml";
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V15</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/css/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
 
-<section id="loginForm">
-    @Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", ReturnUrl = ViewBag.ReturnUrl })
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-group has-feedback">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group has-success" style="display: @((TempData["ResetPasswordSuccess"] == null) ? "none" : "block");">
-            <span class="help-block"> @TempData["ResetPasswordSuccess"]</span>
-        </div>
-        <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    @Html.CheckBoxFor(m => m.RememberMe)
-                    @Html.LabelFor(m => m.RememberMe)
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-form-title" style="background-image: url(../../wwwroot/images/bg-01.jpg);">
+                    <span class="login100-form-title-1">
+                        Sign In
+                    </span>
                 </div>
-            </div>
-            <div class="col-xs-4">
-                <input type="submit" value="Login" class="btn bg-olive" />
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "login100-form validate-form", role = "form", ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+
+                        @Html.ValidationMessageFor(m => m.Email, "Email: ", new { @class = "label-input100" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "input100" })
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.ValidationMessageFor(m => m.Password, "Password: ", new { @class = "label-input100" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "input100" })
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                }
             </div>
         </div>
-       
-    }
-</section>
+    </div>
 
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/css/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/css/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/css/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/js/main.js"></script>
+</body>
+</html>
