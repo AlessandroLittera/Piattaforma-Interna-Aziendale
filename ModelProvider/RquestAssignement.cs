@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Provider.Sql
+namespace Models
 {
-   public class SqlRequestAssignement
+   public class RquestAssignement
     {
-        public int Id { get; set; }
-        public virtual SqlAccount SqlAccount { get; set; }
-        public virtual SqlRequest SqlRequest { get; set; }
+        public string Id { get; set; }
+        public Account Account { get; set; }
+        public Request Request { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public string Note { get; set; }
         public bool IsValid { get; set; }
-
-
     }
 }

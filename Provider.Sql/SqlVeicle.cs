@@ -9,5 +9,10 @@ namespace Provider.Sql
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<SqlVeicleAssignement> SqlVeiclesAssignements { get; set; }
+        public SqlVeicle()
+        {
+            this.Name = string.Empty;
+            this.SqlVeiclesAssignements = new HashSet<SqlVeicleAssignement>();
+        }
     }
 }

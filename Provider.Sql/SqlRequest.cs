@@ -13,5 +13,10 @@ namespace Provider.Sql
         public DateTime? DeactivationDate { get; set; }
         public virtual ICollection<SqlRequestAssignement> SqlRequestAssignements { get; set; }
        
+        public SqlRequest()
+        {
+            this.Name = string.Empty;
+            this.SqlRequestAssignements = new HashSet<SqlRequestAssignement>();
+        }
     } 
 }
