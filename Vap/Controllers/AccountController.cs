@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authentication;
 using AutoMapper;
 using Vap.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Vap.Controllers
 {
@@ -25,13 +26,34 @@ namespace Vap.Controllers
         readonly IAccountHelper accountHelper;
         readonly IUserHelper userHelper;
         private IMapper mapper;
-        public AccountController(IAccountHelper accountHelper, IUserHelper userHelper, IMapper mapper)
+        private readonly SignInManager<IdentityUser> signInManager;
+        public AccountController(IAccountHelper accountHelper, SignInManager<IdentityUser> signInManager, IUserHelper userHelper, IMapper mapper)
         {
             this.accountHelper = accountHelper;
             this.userHelper = userHelper;
             this.mapper = mapper;
+            this.signInManager = signInManager;
         }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("All", "User");
+                }
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+            }
+            return View(model);
+        }
 
         public async Task<IActionResult> Edit(string id)
         {

@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "_Login";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>COLTIBA</title>
+
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <img src="../Images/logo_coltiba.png" width="75%" />
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            @*<p class="login-box-msg">Accedi al tuo account</p>*@
+            <br />
+            @RenderBody()
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+
+    <script type="text/javascript" src="~/lib/adminlte/js/adminlte.js"></script>
+    <script type="text/javascript" src="/Scripts/icheck.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_flat',
+                radioClass: 'iradio_flat'
+            });
+        });
+    </script>
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>/h2>
+

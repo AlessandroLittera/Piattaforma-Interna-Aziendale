@@ -1,0 +1,43 @@
+﻿@using Vap.Controllers
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "User Login";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+
+<section id="loginForm">
+    @Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", ReturnUrl = ViewBag.ReturnUrl })
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group has-feedback">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group has-success" style="display: @((TempData["ResetPasswordSuccess"] == null) ? "none" : "block");">
+            <span class="help-block"> @TempData["ResetPasswordSuccess"]</span>
+        </div>
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="checkbox icheck">
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe)
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <input type="submit" value="Login" class="btn bg-olive" />
+            </div>
+        </div>
+       
+    }
+</section>
+
