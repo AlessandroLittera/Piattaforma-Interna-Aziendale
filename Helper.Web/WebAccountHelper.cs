@@ -85,6 +85,9 @@ namespace Helper.Web
             return provider.UsersAsync();
         }
 
-       
+        public Task<User> CheckUser(string email, string password)
+        {
+            return provider.CheckUser(email, password);
+        }
     }
 }
