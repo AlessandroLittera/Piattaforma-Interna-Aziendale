@@ -25,6 +25,8 @@ namespace Provider.Sql
         public DateTime? DeactivationDate { get; set; }
         public DateTime LastEdit { get; set; }
         public virtual ICollection<SqlAssignement> SqlAssignements { get; set; }
+        public virtual ICollection<SqlVeicleAssignement> SqlVeicleAssignements { get; set; }
+        public virtual ICollection<SqlRequestAssignement> SqlRequestAssignements { get; set; }
        
 
         
@@ -32,8 +34,8 @@ namespace Provider.Sql
 
         public SqlAccount()
         {
-           
-            this.SqlAssignements = new HashSet<SqlAssignement>();
+            this.SqlVeicleAssignements = new HashSet<SqlVeicleAssignement>();
+            this.SqlRequestAssignements = new HashSet<SqlRequestAssignement>();
             this.Nickname = string.Empty;
             this.Email = string.Empty;
             this.IsDefault = false;

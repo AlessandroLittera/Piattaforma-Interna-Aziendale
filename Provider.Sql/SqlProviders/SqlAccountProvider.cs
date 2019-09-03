@@ -81,7 +81,6 @@ namespace Provider.Sql.SqlProviders
                         account.Email = sqlAccount.Email;
                         account.Nickname = sqlAccount.Nickname;
                         account.CreationDate = account.CreationDate;
-                        account.IsMailingList = account.IsMailingList;
                         account.IsDefault = sqlAccount.IsDefault;
                         return await ChangeTypeAccount(account);
                     }

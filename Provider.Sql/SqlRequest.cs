@@ -11,10 +11,7 @@ namespace Provider.Sql
         public DateTime CreationDate { get; set; }
         public DateTime LastEdit { get; set; }
         public DateTime? DeactivationDate { get; set; }
-        public SqlRequest()
-        {
-            
-                
-        }
+        public virtual ICollection<SqlRequestAssignement> SqlRequestAssignements { get; set; }
+       
     } 
 }
