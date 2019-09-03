@@ -269,10 +269,10 @@ namespace Provider.Sql.SqlProviders
 
         public async Task<User> CheckUser(string email, string password)
         {
-            if (email == null || password == null)
+            if (email != null && password != null)
             {
-                SqlAccount sqlAccount = await dbContext.SqlAccounts.Where(x=>x.Email == email).Where(p=>p.Password == password).FirstOrDefaultAsync(x=>x.IsDefault);
-                SqlAssignement sqlAssignement = await dbContext.SqlAssignements.FirstOrDefaultAsync(x=>x.SqlAccount == sqlAccount);
+                SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync();
+                SqlAssignement sqlAssignement = await dbContext.SqlAssignements.FirstOrDefaultAsync(x=>x.SqlAccount.Id == sqlAccount.Id);
                 SqlUser sqlUser = sqlAssignement.SqlUser;
                 return mapper.Map<User>(sqlUser);
             }

@@ -52,13 +52,13 @@ namespace Vap.Controllers
                 return View("Login", "Account");
             }
 
-            //User userDto = await _accountHelper.RetrieveUserAsync(model.Email, model.Password);
-            //if (userDto == null)
-            //{
-            //    ModelState.AddModelError("", "Errore");
-            //    return View(model);
-            //}
-            
+            User userDto = await accountHelper.CheckUser    (model.Email, model.Password);
+            if (userDto == null)
+            {
+                ModelState.AddModelError("", "Errore");
+                return View(model);
+            }
+
 
             if (returnUrl != "/" && !string.IsNullOrWhiteSpace(returnUrl) && !(returnUrl.ToLower().StartsWith("http://") || returnUrl.ToLower().StartsWith("https://")))
             {
@@ -67,7 +67,7 @@ namespace Vap.Controllers
             else
             {
                 
-                return RedirectToAction("Dashboard1", "Home");
+                return RedirectToAction("All", "User");
                 
             }
         }
