@@ -23,42 +23,42 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
         public async Task<ICollection<Request>> RequestsAsync()
         {
             await Task.Delay(0);
-            return mapper.Map<List<Request>>(dbcontext.SqlContexts);
+            return mapper.Map<List<Request>>(dbcontext.SqlRequests);
         }
 
-        public async Task<Request> CreateRequestAsync(Request context)
+        public async Task<Request> CreateRequestAsync(Request request)
         {
-            ObjectEmpty(context);
-            var sqlContext = mapper.Map<SqlRequest>(context);
-            dbcontext.SqlContexts.Add(sqlContext);
+            ObjectEmpty(request);
+            var sqlRequest = mapper.Map<SqlRequest>(request);
+            dbcontext.SqlRequests.Add(sqlRequest);
             await dbcontext.SaveChangesAsync();
-            return mapper.Map<Request>(sqlContext);
+            return mapper.Map<Request>(sqlRequest);
         }
 
-        public async Task<bool> DeleteAsync(Request context)
+        public async Task<bool> DeleteAsync(Request request)
         {
-            ObjectEmpty(context);
-            if (int.TryParse(context.Id, out int idContext))
+            ObjectEmpty(request);
+            if (int.TryParse(request.Id, out int idRequest))
             {
-                var sqlContext = dbcontext.SqlContexts.FirstOrDefault(x => x.Id == idContext);
-                ObjectEmpty(sqlContext);
-                dbcontext.Remove(sqlContext);
+                var sqlRequest = dbcontext.SqlRequests.FirstOrDefault(x => x.Id == idRequest);
+                ObjectEmpty(sqlRequest);
+                dbcontext.Remove(sqlRequest);
                 await dbcontext.SaveChangesAsync();
                 return true;
             }
             throw new NullReferenceException();
         }
 
-        public async Task<Request> EditAsync(Request context)
+        public async Task<Request> EditAsync(Request request)
         {
-            ObjectEmpty(context);
-            if (int.TryParse(context.Id, out int idContext))
+            ObjectEmpty(request);
+            if (int.TryParse(request.Id, out int idRequest))
             {
-                var sqlContext = dbcontext.SqlContexts.FirstOrDefault(x => x.Id == idContext);
-                ObjectEmpty(sqlContext);
-                mapper.Map(sqlContext, context);
+                var sqlRequest = dbcontext.SqlRequests.FirstOrDefault(x => x.Id == idRequest);
+                ObjectEmpty(sqlRequest);
+                mapper.Map(sqlRequest, request);
                 await dbcontext.SaveChangesAsync();
-                return mapper.Map<Request>(sqlContext);
+                return mapper.Map<Request>(sqlRequest);
 
 
             }

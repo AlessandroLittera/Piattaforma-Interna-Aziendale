@@ -17,14 +17,16 @@ namespace Provider.Sql
         public int Id { get; set; }
         [Required(AllowEmptyStrings = false, ErrorMessage = "Title is required.")]
         public string Nickname { get; set; }
-        public bool IsMailingList { get; set; }
         public bool IsDefault { get; set; }
         [EmailAddress]
         public string Email { get; set; }
+        public string Password { get; set; }
         public DateTime CreationDate{ get; set; }
         public DateTime? DeactivationDate { get; set; }
         public DateTime LastEdit { get; set; }
         public virtual ICollection<SqlAssignement> SqlAssignements { get; set; }
+        public virtual ICollection<SqlVeicleAssignement> SqlVeicleAssignements { get; set; }
+        public virtual ICollection<SqlRequestAssignement> SqlRequestAssignements { get; set; }
        
 
         
@@ -32,9 +34,8 @@ namespace Provider.Sql
 
         public SqlAccount()
         {
-           
-            this.IsMailingList = false;
-            this.SqlAssignements = new HashSet<SqlAssignement>();
+            this.SqlVeicleAssignements = new HashSet<SqlVeicleAssignement>();
+            this.SqlRequestAssignements = new HashSet<SqlRequestAssignement>();
             this.Nickname = string.Empty;
             this.Email = string.Empty;
             this.IsDefault = false;
