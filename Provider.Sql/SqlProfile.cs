@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Models.RequestTypes;
+using Provider.Sql.SqlRequests;
 
 namespace Provider.Sql
 {
@@ -30,41 +32,66 @@ namespace Provider.Sql
 
 
             CreateMap<Account, SqlAccount>()
-               
+               .Include<Admin, SqlAdmin>()
                 .Include<Standard, SqlStandard>();
 
 
-            
+            CreateMap<Admin,SqlAdmin>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
             CreateMap<Standard, SqlStandard>()
                  .ForMember(x => x.Id, opt => opt.Ignore());
            
 
             CreateMap<SqlAccount, Account>()
-              
+              .Include<SqlAdmin,Admin>()
                 .Include<SqlStandard, Standard>();
 
-           
+            CreateMap<SqlAdmin, Admin>();
             CreateMap<SqlStandard, Standard>();
 
 
 
-            CreateMap<Request, SqlRequest>();
+            CreateMap<Request, SqlRequest>()
+                .Include<Malattia,SqlMalattia>()
+                .Include<Trasferta,SqlTrasferta>()
+                .Include<Permesso,SqlPermesso>()
+                .Include<Ferie,SqlFerie>();
 
-            CreateMap<SqlRequest, Request>();
-                
+            CreateMap<Malattia, SqlMalattia>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Permesso, SqlPermesso>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Trasferta, SqlTrasferta>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<Ferie, SqlFerie>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
 
-           
-          
+            CreateMap<SqlRequest, Request>()
+                .Include<SqlTrasferta, Trasferta>()
+                .Include<SqlPermesso, Permesso>()
+                .Include<SqlMalattia,Malattia>()
+                .Include<SqlFerie,Ferie>();
 
-         
 
-           
+            CreateMap<SqlFerie, Ferie>();
+            CreateMap<SqlTrasferta, Trasferta>();
+            CreateMap<SqlPermesso, Permesso>();
+            CreateMap<SqlMalattia, Malattia>();
 
-            
+            CreateMap<SqlVeicle, Veicle>();
+            CreateMap<Veicle,SqlVeicle>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
 
-           
 
-           
+
+
+
+
+
+
+
+
+
 
 
         }
