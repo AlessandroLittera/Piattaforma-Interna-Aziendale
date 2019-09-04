@@ -11,7 +11,10 @@ namespace Models.Interfaces.Helpers
         Task<ICollection<Request>> RequestsAsync();
         Task<bool> DeleteAsync(Request request);
         Task<Request> EditAsync(Request request);
-        Task<Request> CreateContextAsync(Request request);
+        Task<Request> CreateRequestAsync(Request request);
+        Task<ICollection<Request>> RequestByAccountIdAsync(string accountId);
+        Task<ICollection<RequestAssignement>> RequestAssignementsValidByRequestIdAsync(string id);
+        Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id);
 
     }
 }

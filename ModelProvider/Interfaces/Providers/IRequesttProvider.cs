@@ -13,6 +13,8 @@ namespace Models.Interfaces.Providers
         Task<Request> EditAsync(Request request);
         Task<Request> CreateRequestAsync(Request request);
         Task<ICollection<Request>> RequestByAccountIdAsync(string accountId);
+        Task<ICollection<RequestAssignement>> RequestAssignementsValidByRequestIdAsync(string id);
+        Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id);
 
     }
 }

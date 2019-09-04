@@ -89,6 +89,31 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
             }
             throw new NullReferenceException();
         }
+
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsValidByRequestIdAsync(string id)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(id, out int requestId))
+            {
+                List<SqlRequestAssignement> sqlRequestAssignements = dbcontext.SqlRequestAssignements.Where(x=>x.SqlRequest.Id == requestId)
+                                                                                                     .Where(x=>x.IsValid).ToList();
+                return mapper.Map<List<RequestAssignement>>(sqlRequestAssignements);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(id, out int requestId))
+            {
+                List<SqlRequestAssignement> sqlRequestAssignements = dbcontext.SqlRequestAssignements.Where(x => x.SqlRequest.Id == requestId).ToList();
+                                                                                                 
+                return mapper.Map<List<RequestAssignement>>(sqlRequestAssignements);
+            }
+            return null;
+
+        }
     }
 
 

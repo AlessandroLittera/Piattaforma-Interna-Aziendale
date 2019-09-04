@@ -21,19 +21,34 @@ namespace Helper.Web.Contextes
             return provider.RequestsAsync();
         }
 
-        public Task<Request> CreateContextAsync(Request context)
+        public Task<Request> CreateRequestAsync(Request request)
         {
-            return provider.CreateRequestAsync(context);
+            return provider.CreateRequestAsync(request);
         }
 
-        public Task<bool> DeleteAsync(Request context)
+        public Task<bool> DeleteAsync(Request request)
         {
-            return provider.DeleteAsync(context);
+            return provider.DeleteAsync(request);
         }
 
-        public Task<Request> EditAsync(Request context)
+        public Task<Request> EditAsync(Request request)
         {
-            return provider.EditAsync(context);
+            return provider.EditAsync(request);
+        }
+
+        public Task<ICollection<Request>> RequestByAccountIdAsync(string accountId)
+        {
+            return provider.RequestByAccountIdAsync(accountId);
+        }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsValidByRequestIdAsync(string id)
+        {
+            return provider.RequestAssignementsValidByRequestIdAsync(id);
+        }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id)
+        {
+            return provider.RequestAssignementsByRequestIdAsync(id);
         }
     }
 }

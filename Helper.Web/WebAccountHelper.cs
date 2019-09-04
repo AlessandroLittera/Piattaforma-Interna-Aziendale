@@ -89,5 +89,26 @@ namespace Helper.Web
         {
             return provider.CheckUser(email, password);
         }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsValidByAccountIdAsync(string id)
+        {
+            return provider.RequestAssignementsValidByAccountIdAsync(id);
+        }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsByAccountIdAsync(string Id)
+        {
+
+            return provider.RequestAssignementsByAccountIdAsync(Id);
+        }
+
+        public Task<ICollection<VeicleAssignement>> VeicleAssignementValidByAccountIdAsync(string id)
+        {
+            return provider.VeicleAssignementValidByAccountIdAsync(id);
+        }
+
+        public Task<ICollection<VeicleAssignement>> VeicleAssignementByAccountIdAsync(string id)
+        {
+            return provider.VeicleAssignementByAccountIdAsync(id);
+        }
     }
 }

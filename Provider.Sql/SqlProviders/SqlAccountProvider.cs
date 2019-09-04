@@ -309,5 +309,16 @@ namespace Provider.Sql.SqlProviders
             }
             return null;
         }
+
+        public async Task<ICollection<VeicleAssignement>> VeicleAssignementValidByAccountIdAsync(string id)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(id, out int accountId))
+            {
+                List<SqlVeicleAssignement> sqlVeicleAssignement = dbContext.SqlVeicleAssignements.Where(x => x.SqlAccount.Id == accountId).Where(x => x.IsValid).ToList();
+                return Mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignement);
+            }
+            return null;
+        }
     }
 }
