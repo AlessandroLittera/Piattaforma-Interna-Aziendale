@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Helper.Web.Contextes
 {
-    public class WebContextHelper : IRequesttHelper
+    public class WebRequestHelper : IRequestHelper
     {
         private IRequestProvider provider;
-        public WebContextHelper(IRequestProvider provider)
+        public WebRequestHelper(IRequestProvider provider)
         {
             this.provider = provider;
         }

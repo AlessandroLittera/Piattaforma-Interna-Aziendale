@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Provider.Sql;
 
 namespace Provider.Sql.Migrations
 {
     [DbContext(typeof(SqlModelsContext))]
-    partial class SqlModelsContextModelSnapshot : ModelSnapshot
+    [Migration("20190904215247_no_dscrptin")]
+    partial class no_dscrptin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,6 +12,7 @@ namespace Models
         
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Descrizione { get; set; }
         public abstract RequestType RequestType { get; }
         public abstract Task<L> VisitAsync<L, T>(IRequestVisitor<L, T> visitor, T item);
 
