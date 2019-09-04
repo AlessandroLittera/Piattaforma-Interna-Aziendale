@@ -8,7 +8,6 @@ namespace Provider.Sql
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Descrizione { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime LastEdit { get; set; }
         public DateTime? DeactivationDate { get; set; }
