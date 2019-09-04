@@ -277,5 +277,37 @@ namespace Provider.Sql.SqlProviders
             }
             throw new NullReferenceException();
         }
+
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsValidByAccountIdAsync(string id)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(id, out int accountId))
+            {
+                List<SqlRequestAssignement> sqlRequestAssignement = dbContext.SqlRequestAssignements.Where(x => x.SqlAccount.Id == accountId)
+                                                                                                    .Where(x=>x.IsValid).ToList();
+                return Mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
+            }
+            return null;
+        }
+
+        public Task<ICollection<VeicleAssignement>> VeicleAssignementByAccountIdAsync(string id)
+        {
+            if (int.TryParse(id, out int accountId))
+            {
+
+            }
+            return null;
+        }
+
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsByAccountIdAsync(string Id)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(Id, out int accountId))
+            {
+                List<SqlRequestAssignement> sqlRequestAssignement = dbContext.SqlRequestAssignements.Where(x => x.SqlAccount.Id == accountId).ToList();
+                return Mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
+            }
+            return null;
+        }
     }
 }

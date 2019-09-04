@@ -16,6 +16,9 @@ namespace Models.Interfaces.Providers
         Task<Account> GetByEmailAsync(string email);
         Task<ICollection<Account>> GetByUserAsync(User user);
         Task<ICollection<Assignement>> AssignementsbyAccountIdAsync(string id);
+        Task<ICollection<RequestAssignement>> RequestAssignementsValidByAccountIdAsync(string id);
+        Task<ICollection<RequestAssignement>> RequestAssignementsByAccountIdAsync(string Id);
+        Task<ICollection<VeicleAssignement>> VeicleAssignementByAccountIdAsync(string id);
         Task<ICollection<User>> UsersAsync();
         Task<bool> DeleteAssignement(string id);
         Task<Assignement> SetAssignementAsync(Assignement assignement);

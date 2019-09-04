@@ -30,6 +30,8 @@ namespace Models
         public DateTime LastEdit { get; set; }
         public bool IsDefault { get; set; }
         public ICollection<Assignement> Assignements { get; set; }
+        public ICollection<RequestAssignement> requestAssignements { get; set; }
+        public ICollection<VeicleAssignement> veicleAssignements { get; set; }
 
 
 

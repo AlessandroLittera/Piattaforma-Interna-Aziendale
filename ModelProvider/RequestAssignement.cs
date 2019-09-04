@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-   public class RquestAssignement
+   public class RequestAssignement
     {
         public string Id { get; set; }
         public Account Account { get; set; }
