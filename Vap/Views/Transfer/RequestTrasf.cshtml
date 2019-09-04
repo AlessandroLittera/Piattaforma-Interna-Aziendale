@@ -1,4 +1,4 @@
-﻿@model Models.Request
+﻿@model RichiestaTrasf
 
 <link href="~/css/fullcalendar.print.min.css" />
 <link href="~/css/fullcalendar.min.css" />
@@ -26,20 +26,24 @@
                     <div class="box-body">
                         <!-- the events -->
                         <div id="external-events">
-                            
 
-                            <div class="external-event bg-green">dsknS  </div>
-                            <div class="external-event bg-yellow">Go home</div>
-                            <div class="external-event bg-aqua">Do homework</div>
-                            <div class="external-event bg-light-blue">Work on UI design</div>
-                            <div class="external-event bg-red">Sleep tight</div>
-                            <div class="checkbox">
-                                <label for="drop-remove">
-                                    <input type="checkbox" id="drop-remove">
-                                    remove after drop
-                                </label>
-                            </div>
-                        </div>
+                            @using (Html.BeginForm("ListRequest", "Trasfer", FormMethod.Post, new { @class = "form-horizontal" }))
+                            {
+
+                                    <div class="external-event bg-green">dsknS  </div>
+                                    <div class="external-event bg-yellow">Go home</div>
+                                    <div class="external-event bg-aqua">Do homework</div>
+                                    <div class="external-event bg-light-blue">Work on UI design</div>
+                                    <div class="external-event bg-red">Sleep tight</div>
+                                    <div class="checkbox">
+                                        <label for="drop-remove">
+                                            <input type="checkbox" id="drop-remove">
+                                            remove after drop
+                                        </label>
+                                    </div>
+                                
+                            }
+                                </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
