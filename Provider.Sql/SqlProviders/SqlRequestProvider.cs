@@ -23,8 +23,9 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
         public async Task<ICollection<Request>> RequestsAsync()
         {
             await Task.Delay(0);
-            return mapper.Map<List<Request>>(dbcontext.SqlRequests);
+            return mapper.Map<List<Request>>(dbcontext.SqlRequests.Where(x => x.DeactivationDate == null));
         }
+
 
         public async Task<Request> CreateRequestAsync(Request request)
         {
@@ -42,7 +43,7 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
             {
                 var sqlRequest = dbcontext.SqlRequests.FirstOrDefault(x => x.Id == idRequest);
                 ObjectEmpty(sqlRequest);
-                dbcontext.Remove(sqlRequest);
+                sqlRequest.DeactivationDate = DateTime.UtcNow;
                 await dbcontext.SaveChangesAsync();
                 return true;
             }
@@ -68,8 +69,25 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
         {
             if (obj == null)
             {
-                throw new NullReferenceException(/*Resource.ObjectEmpty*/);
+                throw new NullReferenceException();
             }
+        }
+
+        public async Task<ICollection<Request>> RequestByAccountIdAsync(string aId)
+        {
+            await Task.Delay(0);
+            if (int.TryParse(aId, out int accountId))
+            {
+                List<SqlRequestAssignement> sqlRequestAssignements = dbcontext.SqlRequestAssignements.Where(x => x.SqlAccount.Id == accountId).ToList();
+                List<SqlRequest> sqlRequests = new List<SqlRequest>();
+                foreach (var request in sqlRequestAssignements)
+                {
+                    sqlRequests.Add(request.SqlRequest);
+                }
+                return Mapper.Map<List<Request>>(sqlRequests);
+
+            }
+            throw new NullReferenceException();
         }
     }
 

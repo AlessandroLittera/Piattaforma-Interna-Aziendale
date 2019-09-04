@@ -270,7 +270,7 @@ namespace Provider.Sql.SqlProviders
         {
             if (email != null && password != null)
             {
-                SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync();
+                SqlAccount sqlAccount = await dbContext.SqlAccounts.Where(x => x.Email.Equals(email)).FirstOrDefaultAsync(x=>x.Password.Equals(password));
                 SqlAssignement sqlAssignement = await dbContext.SqlAssignements.FirstOrDefaultAsync(x=>x.SqlAccount.Id == sqlAccount.Id);
                 SqlUser sqlUser = sqlAssignement.SqlUser;
                 return mapper.Map<User>(sqlUser);

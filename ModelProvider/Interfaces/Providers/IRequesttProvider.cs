@@ -12,6 +12,7 @@ namespace Models.Interfaces.Providers
         Task<bool> DeleteAsync(Request request);
         Task<Request> EditAsync(Request request);
         Task<Request> CreateRequestAsync(Request request);
+        Task<ICollection<Request>> RequestByAccountIdAsync(string accountId);
 
     }
 }
