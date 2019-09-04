@@ -20,5 +20,6 @@ namespace Vap.Models
         public string Email { get; set; }
         
         public  AccountantTypes AccountType { get; set; }
+
     }
 }

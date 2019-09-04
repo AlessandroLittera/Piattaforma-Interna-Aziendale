@@ -44,15 +44,17 @@ namespace Vap.Controllers
         {
             if (!ModelState.IsValid)
             {
+                this.ModelState.AddModelError("Password", "Campi errati");
                 return View(model);
             }
 
             if (model.Email == null || model.Password == null)
             {
+                this.ModelState.AddModelError("Password", "Campi errati");
                 return View("Login", "Account");
             }
 
-            User userDto = await accountHelper.CheckUser    (model.Email, model.Password);
+            User userDto = await accountHelper.CheckUser(model.Email, model.Password);
             if (userDto == null)
             {
                 ModelState.AddModelError("", "Errore");
