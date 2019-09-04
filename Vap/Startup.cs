@@ -64,6 +64,8 @@ namespace Vap
             services.AddScoped<IAccountHelper, WebAccountHelper>();
             services.AddScoped<IAccountProvider, SqlAccountProvider>();
             services.AddScoped<IResolutorFacade, ResolutorFacade>();
+            services.AddScoped<IRequestHelper, WebRequestHelper>();
+            services.AddScoped<IRequestProvider, SqlRequestProvider>();
             services.AddScoped<IFileService, BlobService>();
 
             var mappingConfig = new MapperConfiguration(mc =>

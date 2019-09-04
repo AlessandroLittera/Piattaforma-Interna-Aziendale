@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models.Interfaces.Helpers
 {
-    public interface IRequesttHelper
+    public interface IRequestHelper
     {
         Task<ICollection<Request>> RequestsAsync();
         Task<bool> DeleteAsync(Request request);
