@@ -1,4 +1,4 @@
-﻿@model Richieste
+﻿@model Models.Request
 
 <link href="~/css/fullcalendar.print.min.css" />
 <link href="~/css/fullcalendar.min.css" />
@@ -26,6 +26,8 @@
                     <div class="box-body">
                         <!-- the events -->
                         <div id="external-events">
+                            
+
                             <div class="external-event bg-green">dsknS  </div>
                             <div class="external-event bg-yellow">Go home</div>
                             <div class="external-event bg-aqua">Do homework</div>
@@ -117,9 +119,9 @@
             //Random default events
             events: [
                 /* Gli eventi vanno presi dal controller. Controller passa eventi salvati nel DB e li */
-                @*@foreach(var tra in Richieste)
+                @*@foreach(RichiestaTrasf rich in Model)
                 {
-                    @:{@Html.Raw()}
+                    @:{@Html.Raw(rich)}
                 }*@
             ],
             editable: true,
