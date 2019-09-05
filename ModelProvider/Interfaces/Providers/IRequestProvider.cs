@@ -15,6 +15,7 @@ namespace Models.Interfaces.Providers
         Task<ICollection<Request>> RequestByAccountIdAsync(string accountId);
         Task<ICollection<RequestAssignement>> RequestAssignementsValidByRequestIdAsync(string id);
         Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id);
+        Task<bool> SaveRequestAssignementAsync(RequestAssignement requestAssignement);
 
     }
 }
