@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Provider.Sql.SqlAccountTypes;
-using Provider.Sql.SqlRequests;
 
 namespace Provider.Sql
 {
@@ -35,10 +34,6 @@ namespace Provider.Sql
         public DbSet<SqlAccount> SqlAccounts { get; set; }
         public DbSet<SqlAdmin> sqlAdmins { get; set; }
         public DbSet<SqlRequest> SqlRequests { get; set; }
-        public DbSet<SqlFerie> sqlFeries { get; set; }
-        public DbSet<SqlMalattia> sqlMalattias { get; set; }
-        public DbSet<SqlPermesso> sqlPermessos { get; set; }
-        public DbSet<SqlTrasferta> sqlTrasfertas { get; set; }
         public DbSet<SqlStandard> SqlStandards { get; set; }
         public DbSet<SqlVeicle> SqlVeicles { get; set; }
         public DbSet<SqlVeicleAssignement> SqlVeicleAssignements { get; set; }

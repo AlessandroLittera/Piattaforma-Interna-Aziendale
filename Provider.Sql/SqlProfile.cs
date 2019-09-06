@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using Models.RequestTypes;
-using Provider.Sql.SqlRequests;
 
 namespace Provider.Sql
 {
@@ -51,32 +49,8 @@ namespace Provider.Sql
 
 
 
-            CreateMap<Request, SqlRequest>()
-                .Include<Malattia,SqlMalattia>()
-                .Include<Trasferta,SqlTrasferta>()
-                .Include<Permesso,SqlPermesso>()
-                .Include<Ferie,SqlFerie>();
-
-            CreateMap<Malattia, SqlMalattia>()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<Permesso, SqlPermesso>()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<Trasferta, SqlTrasferta>()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-            CreateMap<Ferie, SqlFerie>()
-                .ForMember(x => x.Id, opt => opt.Ignore());
-
-            CreateMap<SqlRequest, Request>()
-                .Include<SqlTrasferta, Trasferta>()
-                .Include<SqlPermesso, Permesso>()
-                .Include<SqlMalattia,Malattia>()
-                .Include<SqlFerie,Ferie>();
-
-
-            CreateMap<SqlFerie, Ferie>();
-            CreateMap<SqlTrasferta, Trasferta>();
-            CreateMap<SqlPermesso, Permesso>();
-            CreateMap<SqlMalattia, Malattia>();
+            CreateMap<Request, SqlRequest>();
+            
 
             CreateMap<SqlVeicle, Veicle>();
             CreateMap<Veicle,SqlVeicle>()

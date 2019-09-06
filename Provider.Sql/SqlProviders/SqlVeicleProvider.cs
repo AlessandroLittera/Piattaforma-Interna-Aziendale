@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.Interfaces.Providers;
 using System;
@@ -59,14 +60,26 @@ namespace Provider.Sql.SqlProviders
             return false;
         }
 
-        public Task<ICollection<VeicleAssignement>> VeicleAssignementsByVeicleId(string id)
+        public async Task<ICollection<VeicleAssignement>> VeicleAssignementsByVeicleId(string id)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+            if (int.TryParse(id, out int veicleAssignementId))
+            {
+                List<SqlVeicleAssignement> sqlVeicleAssignement =  dbContext.SqlVeicleAssignements.Where(x=>x.Id == veicleAssignementId).ToList();
+                return mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignement);
+            }
+            return null;
         }
 
-        public Task<ICollection<VeicleAssignement>> VeicleAssignementsValidByVeicleId(string id)
+        public async Task<ICollection<VeicleAssignement>> VeicleAssignementsValidByVeicleId(string id)
         {
-            throw new NotImplementedException();
+            await Task.Delay(0);
+            if (int.TryParse(id, out int veicleAssignementId))
+            {
+                List<SqlVeicleAssignement> sqlVeicleAssignement = dbContext.SqlVeicleAssignements.Where(x => x.Id == veicleAssignementId).Where(x=>x.IsValid).ToList();
+                return mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignement);
+            }
+            return null;
         }
 
         public async Task<ICollection<Veicle>> VeiclesAsync()
