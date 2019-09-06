@@ -1,5 +1,4 @@
-﻿@model RichiestaTrasf
-
+﻿@model ICollection<Models.RequestAssignement>
 <link href="~/css/fullcalendar.print.min.css" />
 <link href="~/css/fullcalendar.min.css" />
 
@@ -26,24 +25,19 @@
                     <div class="box-body">
                         <!-- the events -->
                         <div id="external-events">
+                            <div class="external-event bg-green"> Trasferta </div>
+                            <div class="external-event bg-yellow">Malattia</div>
+                            <div class="external-event bg-aqua">Ferie</div>
+                            <div class="external-event bg-light-blue">Permesso</div>
+                            @*<div class="checkbox">
+                                    <label for="drop-remove">
+                                        <input type="checkbox" id="drop-remove">
+                                        remove after drop
+                                    </label>
+                                </div>*@
 
-                            @using (Html.BeginForm("ListRequest", "Trasfer", FormMethod.Post, new { @class = "form-horizontal" }))
-                            {
 
-                                    <div class="external-event bg-green">dsknS  </div>
-                                    <div class="external-event bg-yellow">Go home</div>
-                                    <div class="external-event bg-aqua">Do homework</div>
-                                    <div class="external-event bg-light-blue">Work on UI design</div>
-                                    <div class="external-event bg-red">Sleep tight</div>
-                                    <div class="checkbox">
-                                        <label for="drop-remove">
-                                            <input type="checkbox" id="drop-remove">
-                                            remove after drop
-                                        </label>
-                                    </div>
-                                
-                            }
-                                </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -95,12 +89,12 @@
                     revert: true, // will cause the event to go back to its
                     revertDuration: 0  //  original position after the drag
                 })
-                
+
             })
         }
 
         init_events($('#external-events div.external-event'))
-        
+
         /* initialize the calendar
          -----------------------------------------------------------------*/
         //Date for the calendar events (dummy data)
@@ -123,9 +117,12 @@
             //Random default events
             events: [
                 /* Gli eventi vanno presi dal controller. Controller passa eventi salvati nel DB e li */
-                @*@foreach(RichiestaTrasf rich in Model)
+                @*@foreach(var rich in Model)
                 {
-                    @:{@Html.Raw(rich)}
+                    @:{@Html.Raw(rich.Id)}
+                    @:{@Html.Raw(rich.Note)}
+                    @:{@Html.Raw(rich.From)}
+                    @:{@Html.Raw(rich.To)}
                 }*@
             ],
             editable: true,
@@ -151,9 +148,10 @@
                 // is the "remove after drop" checkbox checked?
                     if ($('#drop-remove').is(':checked')) {
                     // if so, remove the element from the "Draggable Events" list
-                    $(this).remove()
-                }
+                        $(this).remove()
 
+                }
+             
                 }
         })
 

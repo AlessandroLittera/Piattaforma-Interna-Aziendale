@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<Models.User>
 @using Models.Resources
 @{
+    
     ViewData["Title"] = "ListUser";
 }
 <div>
     <section class="content-header">
         <h1>
-            @Resource.ListAllUser
+            @Resource.ListAllUser @ViewBag.Id
             <small>Preview</small>
         </h1>
         <ol class="breadcrumb">
             <li><i class="fa fa-dashboard"></i>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li class="active">List Users</li>
-
+            <li class="active">List Users @ViewBag.Id</li>
         </ol>
     </section>
     <!-- Main content -->

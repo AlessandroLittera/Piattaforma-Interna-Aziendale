@@ -21,7 +21,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Vap.Controllers
 {
-
     public class UserController : Controller
     {
         private readonly IUserHelper userHelper;
@@ -98,8 +97,9 @@ namespace Vap.Controllers
             return RedirectToAction("All");
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string Id)
         {
+            //ViewBag.Id = Id;
             ICollection<User> user = await userHelper.UsersAsync();
             //    await HttpContext.SignInAsync(User);
             return View(user);

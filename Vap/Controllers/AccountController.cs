@@ -20,12 +20,14 @@ namespace Vap.Controllers
 
 
     // [Authorize(Roles = Account.God)]
-    //[Authorize]
+    
     public class AccountController : Controller
     {
         readonly IAccountHelper accountHelper;
         readonly IUserHelper userHelper;
         private IMapper mapper;
+        User userDto = new User();
+        
         public AccountController(IAccountHelper accountHelper, IUserHelper userHelper, IMapper mapper)
         {
             this.accountHelper = accountHelper;
@@ -54,7 +56,7 @@ namespace Vap.Controllers
                 return View("Login", "Account");
             }
 
-            User userDto = await accountHelper.CheckUser(model.Email, model.Password);
+            userDto = await accountHelper.CheckUser(model.Email, model.Password);
             if (userDto == null)
             {
                 ModelState.AddModelError("", "Errore");
@@ -68,7 +70,7 @@ namespace Vap.Controllers
             }
             else
             {
-                
+                TempData["Id"] = userDto.Id;
                 return RedirectToAction("All", "User");
                 
             }
@@ -134,6 +136,7 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> ListAccounts()
         {
+            string id = TempData["Id"] as string;
             ICollection<Account> list = await accountHelper.AccountsAsync();
             return View(list);
         }
@@ -180,7 +183,7 @@ namespace Vap.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SaveAssignement(string accountId, List<string> usersId)
-        {
+        {   
 
             await accountHelper.SetAssignementAsync(accountId, usersId);
             await HttpContext.SignInAsync(User); //per la lista degli account by user

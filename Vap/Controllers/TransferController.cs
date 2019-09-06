@@ -11,18 +11,23 @@ namespace Vap.Controllers
 {
     public class TransferController : Controller
     {
-        readonly IRequestHelper requesttHelper;
+        readonly IRequestHelper requestHelper;
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult RequestTrasf()
+        public async Task<IActionResult> RequestTrasf()
         {
+            string id = TempData["Id"] as string;
+            // ICollection<Request> list = await requestHelper.RequestsAsync();
+            //ViewBag.lista = list;
             return View();
         }
         public async Task<IActionResult> ListRequest()
         {
-            ICollection<Request> list = await requesttHelper.RequestsAsync();
+            string id = TempData["Id"] as string;
+            ICollection<Request> list = await requestHelper.RequestsAsync();
+            ViewBag.lista = list;
             return View(list);
         }
     }
