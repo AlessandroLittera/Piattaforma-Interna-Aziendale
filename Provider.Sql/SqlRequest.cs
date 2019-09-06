@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Provider.Sql
 {
-    public abstract class SqlRequest
+    public class SqlRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
