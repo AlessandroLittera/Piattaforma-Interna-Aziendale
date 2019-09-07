@@ -20,7 +20,8 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> RequestTrasf()
         {
-            string id = TempData["Id"] as string;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             // RichiestaTrasf rich = new RichiestaTrasf();
             // ICollection<Request> list = await requestHelper.RequestsAsync();
             //ViewBag.lista = list;
@@ -29,7 +30,7 @@ namespace Vap.Controllers
             richiestaTrasf.Name = "Ferie";
             richiestaTrasf.From = DateTime.UtcNow;
             richiestaTrasf.To = DateTime.UtcNow;
-            richiestaTrasf.AccountId = id;
+            richiestaTrasf.AccountId = ids;
             ric.Add(richiestaTrasf);
             return View(ric);
         }
@@ -37,17 +38,19 @@ namespace Vap.Controllers
         
         public async Task<IActionResult> ListRequest()
         {
-            string id = TempData["Id"] as string;
-            
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(id);
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
+
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(ids);
             ViewBag.lista = list;
             return View(list);
 
         }
         public async Task<IActionResult> ListRichAccount()
         {
-            string id = TempData["Id"] as string;
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(id);
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(ids);
             ViewBag.lista = list;
             return View(list);
 
@@ -56,7 +59,8 @@ namespace Vap.Controllers
 
         public IActionResult NewRequest()
         {
-            string id = TempData["Id"] as string;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             return View();
         }
 
@@ -64,8 +68,9 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewRequestView(Richieste richiesta)
         {
-            string id = TempData["Id"] as string;
-            richiesta.AccountId = id;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
+            richiesta.AccountId = ids;
             Request request = Mapper.Map<Request>(richiesta);
             
             if (ModelState.IsValid)

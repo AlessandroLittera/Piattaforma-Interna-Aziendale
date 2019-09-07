@@ -77,6 +77,8 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> Edit(string id)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             List<SelectListItem> items = new List<SelectListItem>
             {
                 new SelectListItem("DPO", "DPO") { Selected = true },
@@ -99,6 +101,8 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAccountView(Account account)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             var edit = await accountHelper.EditAsync(account);
             await HttpContext.SignInAsync(User);
             return RedirectToAction("ListAccounts");
@@ -106,19 +110,23 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> DeleteAccount(string id)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             var edit = await accountHelper.DeleteAsync(id);
             return RedirectToAction("ListAccounts");
         }
         public async Task<IActionResult> DeleteAssignement(string id)
         {
-
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             var edit = await accountHelper.DeleteAssignement(id);
             return RedirectToAction("ListAccounts");
         }
 
         public async Task<IActionResult> ListUsers(string id)
         {
-            // ViewBag.AccountId = id;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             ListUsersForAccount list = new ListUsersForAccount();
             list.Users = await accountHelper.UsersNotPresentAsync(id);
             list.account = await accountHelper.GetById(id);
@@ -129,6 +137,8 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> AccountAssignement(string accountsId, List<string> usersId)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             var edit = await accountHelper.SetAssignementAsync(accountsId, usersId);
             await HttpContext.SignInAsync(User);
             return RedirectToAction("ListAccounts");
@@ -136,7 +146,8 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> ListAccounts()
         {
-            string id = TempData["Id"] as string;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             ICollection<Account> list = await accountHelper.AccountsAsync();
             return View(list);
         }
@@ -145,12 +156,16 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> ListAccountFromUser(User user)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             ICollection<Account> list = await accountHelper.GetByUserAsync(user);
             return View(list);
         }
 
         public async Task<IActionResult> NewAccount(AccountantTypes accountant)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             await Task.Delay(0);
             // da vedere bene
             // non  bello il modo in cui setto i valori e poi il passaggio con user
@@ -170,6 +185,8 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewAccountView(CreateAccount createAccount)
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             Account account = mapper.Map<Account>(createAccount);
             if (ModelState.IsValid)
             {
@@ -183,8 +200,9 @@ namespace Vap.Controllers
 
         [HttpPost]
         public async Task<IActionResult> SaveAssignement(string accountId, List<string> usersId)
-        {   
-
+        {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             await accountHelper.SetAssignementAsync(accountId, usersId);
             await HttpContext.SignInAsync(User); //per la lista degli account by user
             return RedirectToAction("Edit/" + accountId);

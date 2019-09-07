@@ -36,7 +36,7 @@ namespace Vap
 {
     public class Startup
     {
-
+        
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
         public static string PublicClientId { get; private set; }
         public Startup(IConfiguration configuration)
@@ -66,6 +66,8 @@ namespace Vap
             services.AddScoped<IResolutorFacade, ResolutorFacade>();
             services.AddScoped<IRequestHelper, WebRequestHelper>();
             services.AddScoped<IRequestProvider, SqlRequestProvider>();
+            services.AddScoped<IVeicleHelper, WebVeicleHelper>();
+            services.AddScoped<IVeicleProvider, SqlVeicleProvider>();
             services.AddScoped<IFileService, BlobService>();
 
             var mappingConfig = new MapperConfiguration(mc =>

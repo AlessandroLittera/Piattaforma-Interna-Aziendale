@@ -5,34 +5,44 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.Interfaces.Helpers;
 using Vap.Models;
 
 namespace Vap.Controllers
 {
     public class AutoController : Controller
     {
+        readonly IVeicleHelper veicleHelper;
 
+        public AutoController(IVeicleHelper veicleHelper)
+        {
+            this.veicleHelper = veicleHelper;
+        }
         public IActionResult RequestAuto()
         {
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             return View();
         }
         public IActionResult NewAuto()
         {
-            string id = TempData["Id"] as string;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewAutoView(CreateAuto auto)
         {
-            string id = TempData["Id"] as string;
-            auto.AccountId = id;
-            Veicle request = Mapper.Map<Veicle>(auto);
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
+            auto.AccountId = ids;
+            VeicleAssignement request = Mapper.Map<VeicleAssignement>(auto);
 
             if (ModelState.IsValid)
             {
 
-                //var all = await requestHelper.CreateRequestAsync(request);
+                var all = await veicleHelper.SaveVeicleAssignement(request);
                 return RedirectToAction("NewRequest");
 
             }
@@ -40,10 +50,11 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> ListAuto()
         {
-            string id = TempData["Id"] as string;
+            string ids = TempData["Id"] as string;
+            TempData["Id"] = ids;
 
-            //ICollection<VeicleAssignement> list = await 
-            //ViewBag.lista = list;
+            //ICollection<VeicleAssignement> list = await veicleHelper.
+
             return View();
         }
     }
