@@ -16,6 +16,12 @@ namespace Helper.Web
         {
             this.veicleProvider = veicleProvider;
         }
+
+        public Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement()
+        {
+            return veicleProvider.AllValidVeicleAssignement();
+        }
+
         public Task<bool> DeleteAsync(string id)
         {
             return veicleProvider.DeleteAsync(id);

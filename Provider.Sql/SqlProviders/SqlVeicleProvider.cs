@@ -117,6 +117,10 @@ namespace Provider.Sql.SqlProviders
             }
             return false;
         }
-        
+        public async Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<VeicleAssignement>>(dbContext.SqlVeicleAssignements.Where(x=>x.IsValid).ToList());
+        }
     }
 }
