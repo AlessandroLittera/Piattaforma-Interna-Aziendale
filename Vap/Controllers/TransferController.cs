@@ -71,11 +71,11 @@ namespace Vap.Controllers
             string ids = TempData["Id"] as string;
             TempData["Id"] = ids;
             richiesta.AccountId = ids;
-            Request request = Mapper.Map<Request>(richiesta);
+            RequestAssignement request = Mapper.Map<RequestAssignement>(richiesta);
             
             if (ModelState.IsValid)
             {
-                var all = await requestHelper.CreateRequestAsync(request);
+                var all = await requestHelper.SaveRequestAssignement(request);
                 return RedirectToAction("NewRequest");
             }
             return View();

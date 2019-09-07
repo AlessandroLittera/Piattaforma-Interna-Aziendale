@@ -53,7 +53,7 @@ namespace Vap.Controllers
             string ids = TempData["Id"] as string;
             TempData["Id"] = ids;
 
-            //ICollection<VeicleAssignement> list = await veicleHelper.
+            ICollection<VeicleAssignement> list = await veicleHelper.AllValidVeicleAssignement();
 
             return View();
         }
