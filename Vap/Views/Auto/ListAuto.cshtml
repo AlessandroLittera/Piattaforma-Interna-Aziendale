@@ -1,0 +1,45 @@
+﻿@model ICollection<Models.VeicleAssignement>
+@{
+    ViewData["Title"] = "ListAuto";
+}
+
+<div class="content">
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               
+                    @foreach (var person in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(item => person.Veicle.Name)</td>
+                            <td>@Html.DisplayFor(item => person.From)</td>
+                            <td>@Html.DisplayFor(item => person.To)</td>
+                        </tr>
+                    }
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Account</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="box-footer">
+        <button type="submit" class="btn btn-default pull-right">
+            Salvami
+        </button>
+    </div>
+</div>
+
+

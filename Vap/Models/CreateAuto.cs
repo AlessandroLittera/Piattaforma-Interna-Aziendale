@@ -7,25 +7,23 @@ using System.Threading.Tasks;
 
 namespace Vap.Models
 {
-    public class Richieste
+    public class CreateAuto
     {
         public string Id { get; set; }
-        public string Name { get; set; }
         public string AccountId { get; set; }
-        [Required]
+        public AutoTypes AutoType { get; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         [Required]
         public string Note { get; set; }
-        public RequestTypes RequestType { get; }
-        List<RequestAssignement> ListRichieste = new List<RequestAssignement>();
-        public enum RequestTypes
+        public DateTime CollectionDate { get; set; }
+        List<Veicle> veicoli = new List<Veicle>();
+        public enum AutoTypes
         {
-            Malattia = 0,
-            Ferie = 1,
-            Trasferta = 2,
-            Permesso = 3,
+            BMW_classeE = 0,
+            FIAT_500L = 1,
+            POLO = 2,
+            TESLA = 3,
         }
-       
     }
 }
