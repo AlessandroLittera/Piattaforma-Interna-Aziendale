@@ -18,6 +18,7 @@ namespace Provider.Sql.SqlProviders
         public SqlVeicleProvider(SqlModelsContext sqlModelsContext,IMapper mapper)
         {
             this.dbContext = sqlModelsContext;
+            this.mapper = mapper;
         }
         public async Task<bool> DeleteAsync(string id)
         {
@@ -120,7 +121,9 @@ namespace Provider.Sql.SqlProviders
         public async Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement()
         {
             await Task.Delay(0);
-            return mapper.Map<List<VeicleAssignement>>(dbContext.SqlVeicleAssignements.Where(x=>x.IsValid).ToList());
+
+            return mapper.Map<List<VeicleAssignement>>(dbContext.SqlVeicleAssignements.Where(x => x.IsValid).ToList());
+            
         }
     }
 }

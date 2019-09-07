@@ -28,7 +28,7 @@ namespace Vap.Controllers
         private readonly IMapper mapper;
         private readonly IFileService fileService;
         private readonly IHostingEnvironment _hostingEnvironment;
-
+        private string userId = AccountController.userId;
         public UserController(IUserHelper userHelper, IResolutorFacade resolutorFacade, IFileService fileService, IHostingEnvironment environment, IMapper mapper)
         {
             this.resolutorFacade = resolutorFacade;

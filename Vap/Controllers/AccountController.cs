@@ -26,6 +26,7 @@ namespace Vap.Controllers
         readonly IAccountHelper accountHelper;
         readonly IUserHelper userHelper;
         private IMapper mapper;
+        public static string userId;
         User userDto = new User();
         
         public AccountController(IAccountHelper accountHelper, IUserHelper userHelper, IMapper mapper)
@@ -71,6 +72,7 @@ namespace Vap.Controllers
             else
             {
                 TempData["Id"] = userDto.Id;
+                AccountController.userId = userDto.Id;
                 return RedirectToAction("All", "User");
                 
             }
@@ -207,7 +209,7 @@ namespace Vap.Controllers
             await HttpContext.SignInAsync(User); //per la lista degli account by user
             return RedirectToAction("Edit/" + accountId);
         }
-
+       
 
 
     }

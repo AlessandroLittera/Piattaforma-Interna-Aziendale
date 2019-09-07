@@ -285,16 +285,18 @@ namespace Provider.Sql.SqlProviders
             {
                 List<SqlRequestAssignement> sqlRequestAssignement = dbContext.SqlRequestAssignements.Where(x => x.SqlAccount.Id == accountId)
                                                                                                     .Where(x=>x.IsValid).ToList();
-                return Mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
+                return mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
             }
             return null;
         }
 
-        public Task<ICollection<VeicleAssignement>> VeicleAssignementByAccountIdAsync(string id)
+        public async  Task<ICollection<VeicleAssignement>> VeicleAssignementByAccountIdAsync(string id)
         {
+            await Task.Delay(0);
             if (int.TryParse(id, out int accountId))
             {
-
+                List<SqlVeicleAssignement> sqlVeicleAssignements = dbContext.SqlVeicleAssignements.Where(x => x.SqlAccount.Id == accountId).ToList() ;
+                return mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignements);
             }
             return null;
         }
@@ -305,7 +307,7 @@ namespace Provider.Sql.SqlProviders
             if (int.TryParse(Id, out int accountId))
             {
                 List<SqlRequestAssignement> sqlRequestAssignement = dbContext.SqlRequestAssignements.Where(x => x.SqlAccount.Id == accountId).ToList();
-                return Mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
+                return mapper.Map<List<RequestAssignement>>(sqlRequestAssignement);
             }
             return null;
         }
@@ -316,7 +318,7 @@ namespace Provider.Sql.SqlProviders
             if (int.TryParse(id, out int accountId))
             {
                 List<SqlVeicleAssignement> sqlVeicleAssignement = dbContext.SqlVeicleAssignements.Where(x => x.SqlAccount.Id == accountId).Where(x => x.IsValid).ToList();
-                return Mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignement);
+                return mapper.Map<List<VeicleAssignement>>(sqlVeicleAssignement);
             }
             return null;
         }

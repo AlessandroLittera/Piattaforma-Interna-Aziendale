@@ -85,7 +85,7 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
                 {
                     sqlRequests.Add(request.SqlRequest);
                 }
-                return Mapper.Map<List<Request>>(sqlRequests);
+                return mapper.Map<List<Request>>(sqlRequests);
 
             }
             throw new NullReferenceException();

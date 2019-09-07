@@ -14,6 +14,12 @@ namespace Vap.Controllers
     {
         readonly IRequestHelper requestHelper;
         readonly IAccountHelper accountHelper;
+        private string userid = AccountController.userId;
+        public TransferController(IRequestHelper requestHelper, IAccountHelper accountHelper)
+        {
+            this.requestHelper = requestHelper;
+            this.accountHelper = accountHelper;
+        }
         public IActionResult Index()
         {
             return View();
@@ -38,10 +44,9 @@ namespace Vap.Controllers
         
         public async Task<IActionResult> ListRequest()
         {
-            string ids = TempData["Id"] as string;
-            TempData["Id"] = ids;
+          
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(ids);
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             ViewBag.lista = list;
             return View(list);
 
