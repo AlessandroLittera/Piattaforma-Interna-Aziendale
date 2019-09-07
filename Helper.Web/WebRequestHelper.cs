@@ -50,5 +50,10 @@ namespace Helper.Web.Contextes
         {
             return provider.RequestAssignementsByRequestIdAsync(id);
         }
+
+        public Task<bool> SaveRequestAssignement(RequestAssignement requestAssignement)
+        {
+            return provider.SaveRequestAssignementAsync(requestAssignement);
+        }
     }
 }
