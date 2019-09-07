@@ -87,5 +87,36 @@ namespace Provider.Sql.SqlProviders
             await Task.Delay(0);
             return mapper.Map<List<Veicle>>(dbContext.SqlVeicles);
         }
+        public async Task<bool> SaveVeicleAssignement(VeicleAssignement veicleAssignement)
+        {
+            if (veicleAssignement == null)
+            {
+                if (int.TryParse(veicleAssignement.Account.Id,out int accountId) & int.TryParse(veicleAssignement.Veicle.Id,out int veicleId))
+                {
+                    SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
+                    SqlVeicle sqlVeicle = await dbContext.SqlVeicles.FirstOrDefaultAsync(x => x.Id == veicleId);
+                    SqlVeicleAssignement sqlVeicleAssignement = mapper.Map<SqlVeicleAssignement>(veicleAssignement);
+                    sqlVeicleAssignement.SqlAccount = sqlAccount;
+                    sqlVeicleAssignement.SqlVeicle = sqlVeicle;
+
+                    await dbContext.SqlVeicleAssignements.AddAsync(sqlVeicleAssignement);
+
+                    return await dbContext.SaveChangesAsync() > 0;
+                }
+                
+            }
+            return false;
+        }
+        public async Task<bool> ValidateAsync(string id)
+        {
+            if (int.TryParse(id, out int veicleAssignementId))
+            {
+                SqlVeicleAssignement sqlVeicleAssignement = await dbContext.SqlVeicleAssignements.FirstOrDefaultAsync(x=>x.Id == veicleAssignementId);
+                sqlVeicleAssignement.IsValid = true;
+                return await dbContext.SaveChangesAsync()>0;
+            }
+            return false;
+        }
+        
     }
 }

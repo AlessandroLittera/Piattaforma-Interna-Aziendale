@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Interfaces.Providers
+namespace Models.Interfaces.Helpers
 {
-    public interface IVeicleProvider
+    public interface IVeicleHelper
     {
         Task<ICollection<Veicle>> VeiclesAsync();
         Task<Veicle> RetriveByIdAsync(string Id);
@@ -15,7 +15,5 @@ namespace Models.Interfaces.Providers
         Task<ICollection<VeicleAssignement>> VeicleAssignementsByVeicleId(string id);
         Task<bool> SaveVeicleAssignement(VeicleAssignement veicleAssignement);
         Task<bool> ValidateAsync(string id);
-
-
     }
 }
