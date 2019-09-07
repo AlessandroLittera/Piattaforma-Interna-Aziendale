@@ -10,7 +10,7 @@ namespace Provider.Sql
         public virtual SqlAccount SqlAccount { get; set; }
         public virtual SqlRequest SqlRequest { get; set; }
         public DateTime From { get; set; }
-        public DateTime To { get; set; }
+        public DateTime To { get; set; } 
         public string Note { get; set; }
         public bool IsValid { get; set; }
 
