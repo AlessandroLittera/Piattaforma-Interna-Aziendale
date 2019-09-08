@@ -17,6 +17,11 @@ namespace Helper.Web
             this.veicleProvider = veicleProvider;
         }
 
+        public Task<ICollection<VeicleAssignement>> AllRequestToValidateasync()
+        {
+            return veicleProvider.AllRequestToValidateasync();
+        }
+
         public Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement()
         {
             return veicleProvider.AllValidVeicleAssignement();
@@ -25,6 +30,11 @@ namespace Helper.Web
         public Task<bool> DeleteAsync(string id)
         {
             return veicleProvider.DeleteAsync(id);
+        }
+
+        public Task<Veicle> GetById(string id)
+        {
+            return veicleProvider.GetById(id);
         }
 
         public Task<Veicle> RetrieveByType(string type)
@@ -50,6 +60,11 @@ namespace Helper.Web
         public Task<bool> ValidateAsync(string id)
         {
             return veicleProvider.ValidateAsync(id);
+        }
+
+        public Task<ICollection<VeicleAssignement>> VeicleAssignementsAsync()
+        {
+            return veicleProvider.VeicleAssignementsAsync();
         }
 
         public Task<ICollection<VeicleAssignement>> VeicleAssignementsByVeicleId(string id)

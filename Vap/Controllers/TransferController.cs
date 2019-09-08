@@ -14,7 +14,7 @@ namespace Vap.Controllers
     {
         readonly IRequestHelper requestHelper;
         readonly IAccountHelper accountHelper;
-        private string userid = AccountController.userId;
+        public string userid = AccountController.userId;
         private string acccountId = AccountController.accountId;
         public TransferController(IRequestHelper requestHelper, IAccountHelper accountHelper)
         {
@@ -27,7 +27,8 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> RequestTrasf()
         {
-            string ids = userid;
+            await Task.Delay(0);
+            string ids = this.userid;
             TempData["Id"] = ids;
             // RichiestaTrasf rich = new RichiestaTrasf();
             // ICollection<Request> list = await requestHelper.RequestsAsync();
@@ -78,7 +79,7 @@ namespace Vap.Controllers
             request.Request = await requestHelper.RetrieveByType(richiesta.RequestType.ToString());
             request.Note = richiesta.Note;
             request.From = richiesta.StartDate;
-            request.To = request.To;
+            request.To = richiesta.To;
             request.IsValid = request.IsValid;
             if (ModelState.IsValid)
             {

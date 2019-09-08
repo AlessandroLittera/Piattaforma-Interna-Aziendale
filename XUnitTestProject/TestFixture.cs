@@ -25,6 +25,8 @@ public class TestFixture
         services.AddScoped<IUserProvider, SqlUserProvider>();
         services.AddScoped<IAccountHelper, WebAccountHelper>();
         services.AddScoped<IAccountProvider, SqlAccountProvider>();
+        services.AddScoped<IRequestHelper, WebRequestHelper>();
+        services.AddScoped<IRequestProvider, SqlRequestProvider>();
 
 
         var mappingConfig = new MapperConfiguration(mc =>

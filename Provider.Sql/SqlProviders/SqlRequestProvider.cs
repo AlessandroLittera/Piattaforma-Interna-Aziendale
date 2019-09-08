@@ -118,13 +118,13 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
 
         public async Task<bool> SaveRequestAssignementAsync(RequestAssignement requestAssignement)
         {
-            if (requestAssignement == null)
+            if (requestAssignement != null)
             {
                 if (int.TryParse(requestAssignement.Account.Id,out int accountId) & int.TryParse(requestAssignement.Request.Id, out int requestId))
                 {
                     SqlAccount sqlAccount = await dbcontext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
                     SqlRequest sqlRequest = await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Id == requestId);
-                    SqlRequestAssignement sqlRequestAssignement = Mapper.Map<SqlRequestAssignement>(requestAssignement);
+                    SqlRequestAssignement sqlRequestAssignement = mapper.Map<SqlRequestAssignement>(requestAssignement);
                     sqlRequestAssignement.SqlAccount = sqlAccount;
                     sqlRequestAssignement.SqlRequest = sqlRequest;
                     dbcontext.SqlRequestAssignements.Add(sqlRequestAssignement);
@@ -134,6 +134,26 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
 
             }
             return false;
+        }
+
+        public async Task<Request> GetById(string id)
+        {
+            if (int.TryParse(id, out int reqId))
+            {
+                SqlRequest sqlRequest = await dbcontext.SqlRequests.FirstOrDefaultAsync(x=>x.Id == reqId);
+                return mapper.Map<Request>(sqlRequest);
+            }
+            return null;
+        }
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsAsync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<RequestAssignement>>(dbcontext.SqlRequestAssignements);
+        }
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsToValidateAsync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<RequestAssignement>>(dbcontext.SqlRequestAssignements.Where(x=>!x.IsValid));
         }
 
         public async Task<Request> RetrieveByType(string type)
