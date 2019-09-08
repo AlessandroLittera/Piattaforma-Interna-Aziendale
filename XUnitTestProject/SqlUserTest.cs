@@ -131,7 +131,8 @@ namespace XUnitTest
         public async Task CheckUserFromId()
         {
             //Act
-            var user = await userProvider.GetById(AccountController.userId);
+            var users = await userProvider.UsersAsync();
+            var user = await userProvider.GetById(users.FirstOrDefault().Id);
 
             //Assert
             Assert.NotNull(user);

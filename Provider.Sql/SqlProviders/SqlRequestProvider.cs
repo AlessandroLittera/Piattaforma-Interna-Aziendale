@@ -118,13 +118,13 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
 
         public async Task<bool> SaveRequestAssignementAsync(RequestAssignement requestAssignement)
         {
-            if (requestAssignement == null)
+            if (requestAssignement != null)
             {
                 if (int.TryParse(requestAssignement.Account.Id,out int accountId) & int.TryParse(requestAssignement.Request.Id, out int requestId))
                 {
                     SqlAccount sqlAccount = await dbcontext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
                     SqlRequest sqlRequest = await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Id == requestId);
-                    SqlRequestAssignement sqlRequestAssignement = Mapper.Map<SqlRequestAssignement>(requestAssignement);
+                    SqlRequestAssignement sqlRequestAssignement = mapper.Map<SqlRequestAssignement>(requestAssignement);
                     sqlRequestAssignement.SqlAccount = sqlAccount;
                     sqlRequestAssignement.SqlRequest = sqlRequest;
                     dbcontext.SqlRequestAssignements.Add(sqlRequestAssignement);
