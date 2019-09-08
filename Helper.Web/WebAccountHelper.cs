@@ -110,5 +110,10 @@ namespace Helper.Web
         {
             return provider.VeicleAssignementByAccountIdAsync(id);
         }
+
+        public Task<bool> ChangePassword(Account account)
+        {
+            return provider.ChangePassword(account);
+        }
     }
 }

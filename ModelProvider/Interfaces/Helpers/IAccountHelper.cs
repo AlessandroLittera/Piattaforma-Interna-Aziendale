@@ -25,6 +25,7 @@ namespace Models.Interfaces.Helpers
         Task<Assignement> SetAssignementAsync(string accountId, List<string> usersId);
         Task<ICollection<User>> UsersNotPresentAsync(string id);
         Task<User> CheckUser(string email, string password);
+        Task<bool> ChangePassword(Account account);
 
     }
 }

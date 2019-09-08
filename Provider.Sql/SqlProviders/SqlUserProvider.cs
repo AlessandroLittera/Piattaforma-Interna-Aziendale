@@ -32,7 +32,9 @@ namespace Provider.Sql
             SqlUser sqlUser = new SqlUser();
             user.LastEdit = DateTime.UtcNow;
             user.CreationDate = DateTime.UtcNow;
+            
             mapper.Map(user, sqlUser);
+            
             dbContext.SqlUsers.Add(sqlUser);
             await dbContext.SaveChangesAsync();
             return mapper.Map<User>(sqlUser);

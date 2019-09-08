@@ -248,7 +248,20 @@ namespace Provider.Sql.SqlProviders
             }
             throw new NullReferenceException(Resource.InvalidOperation);
         } // return an user from it's id
-
+        public async Task<bool> ChangePassword(Account account)
+        {
+            if (account != null)
+            {
+                if (int.TryParse(account.Id, out int accId))
+                {
+                    SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accId);
+                    sqlAccount.Password = account.Password;
+                    return await dbContext.SaveChangesAsync()>0;
+                }
+                
+            }
+            return false;
+        }
        
 
         public void ObjectEmpty(Object obj)

@@ -26,6 +26,7 @@ namespace Models.Interfaces.Providers
         Task<ICollection<User>> UsersNotPresentAsync(string id);
         Task<User> GetUserById(string id);
         Task<User> CheckUser(string email, string password);
+        Task<bool> ChangePassword(Account account);
 
         // for unitTest
         Task<bool> RemoveUser(User user);

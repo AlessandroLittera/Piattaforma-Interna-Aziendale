@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Helper.Web.HatHelper
 {
-    public class ResolutorFacade : IResolutorFacade 
+    public class ResolutorFacade : IResolutorFacade
     {
         private IUserHelper userHelper;
         private IAccountHelper accountHelper;
@@ -21,18 +21,18 @@ namespace Helper.Web.HatHelper
 
         public async Task<Assignement> CreateUserAndDefaultAccount(Assignement assignement)
         {
-            
-                User user = assignement.User;
-                Account account = assignement.Account;
-                account.IsDefault = true;
-                var fullUser = await userHelper.CreateUserAsync(user);
-                var fullAccount = await accountHelper.CreateAccountAsync(account);
+
+            User user = assignement.User;
+            Account account = assignement.Account;
+            account.IsDefault = true;
+            var fullUser = await userHelper.CreateUserAsync(user);
+            var fullAccount = await accountHelper.CreateAccountAsync(account);
             List<string> accountsId = new List<string>
                 {
                     fullAccount.Id
                 };
 
-            return await userHelper.SetAssignementAsync(fullUser.Id, accountsId); 
+            return await userHelper.SetAssignementAsync(fullUser.Id, accountsId);
         }
 
         public async Task<User> UserAsync(string email)
