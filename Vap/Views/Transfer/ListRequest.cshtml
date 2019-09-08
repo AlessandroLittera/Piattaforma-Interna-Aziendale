@@ -11,6 +11,7 @@
                     <th>Account</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Convalidato</th>
                 </tr>
             </thead>
 
@@ -23,6 +24,16 @@
                             <td>@Html.DisplayFor(item => person.Request.Name)</td>
                             <td>@Html.DisplayFor(item => person.From)</td>
                             <td>@Html.DisplayFor(item => person.To)</td>
+                            <td>
+                                @if (person.IsValid)
+                                {
+                                    <a>Confermato</a>
+                                }
+                                else
+                                {
+                                    <a>In attesa</a>
+                                }
+                            </td>
                         </tr>
                     }
                 }
@@ -32,6 +43,7 @@
                     <th>Account</th>
                     <th>Inizio</th>
                     <th>Fine</th>
+                    <th>Convalidato</th>
                 </tr>
             </tfoot>
         </table>

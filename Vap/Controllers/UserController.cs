@@ -40,7 +40,7 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> EditUserAccount()
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             await Task.Delay(0);
             return View();
@@ -50,14 +50,14 @@ namespace Vap.Controllers
 
         public IActionResult Profile(User u)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             return View(u);
         }
 
         public async Task<IActionResult> NewUser(AccountantTypes accountantTypes)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             await Task.Delay(0);
             Assignement assignement = new Assignement
@@ -72,7 +72,7 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewUserView(CreateUser createUser)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             var assignment = mapper.Map<Assignement>(createUser);
     
@@ -85,7 +85,7 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             User aUser = new User();
             //ViewBag.UserId = id;
@@ -97,7 +97,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserView(User u)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId; 
             TempData["Id"] = ids;
 
             var all = await userHelper.EditAsync(u);
@@ -108,7 +108,7 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> All(string Id)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             ICollection<User> user = await userHelper.UsersAsync();
             //    await HttpContext.SignInAsync(User);
@@ -117,7 +117,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirm(User u)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             await userHelper.DeleteAsync(u);
             return Content("");
@@ -126,7 +126,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAssignement(string id)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             await userHelper.DeleteAssignementAsync(ids);
             return Ok();
@@ -135,7 +135,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> ListUserFromAccount(string email)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             ICollection<User> list = await userHelper.GetByEmailAsync(email);
             return View(list);
@@ -144,7 +144,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAssignement(string userId, List<string> accountsId)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             await userHelper.SetAssignementAsync(userId, accountsId);
             await HttpContext.SignInAsync(User);
@@ -153,7 +153,7 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> ListAccounts(string id)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             ListAccountsForUser list = new ListAccountsForUser();
             list.Accounts= await userHelper.AccountsNotPresentAsync(ids);
@@ -164,7 +164,7 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> LogoUpload(IFormFile file)
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             var url = await fileService.SaveAsync("uploads", file.FileName, file.OpenReadStream());
             return Ok(url);

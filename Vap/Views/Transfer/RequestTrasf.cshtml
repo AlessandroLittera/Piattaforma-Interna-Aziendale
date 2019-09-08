@@ -117,14 +117,14 @@
             //Random default events
             events: [
                 /* Gli eventi vanno presi dal controller. Controller passa eventi salvati nel DB e li */
-                @foreach(var rich in Model)
+                @*@foreach(var rich in Model)
                 {
                     @:{@Html.Raw(rich.AccountId)},
                     @:{@Html.Raw(rich.Name)},
                     @:{@Html.Raw(rich.From)},
                     @:{@Html.Raw(rich.To)}
 
-                }
+                }*@
             ],
             editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!

@@ -13,6 +13,7 @@ namespace Vap.Controllers
     public class AutoController : Controller
     {
         readonly IVeicleHelper veicleHelper;
+        private string userId = AccountController.userId;
 
         public AutoController(IVeicleHelper veicleHelper)
         {
@@ -28,6 +29,7 @@ namespace Vap.Controllers
         {
             string ids = TempData["Id"] as string;
             TempData["Id"] = ids;
+            
             return View();
         }
         [HttpPost]

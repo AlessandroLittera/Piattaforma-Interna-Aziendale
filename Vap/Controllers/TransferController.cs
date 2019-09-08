@@ -14,7 +14,7 @@ namespace Vap.Controllers
     {
         readonly IRequestHelper requestHelper;
         readonly IAccountHelper accountHelper;
-        private string userid = AccountController.userId;
+        private string userId = AccountController.userId;
         public TransferController(IRequestHelper requestHelper, IAccountHelper accountHelper)
         {
             this.requestHelper = requestHelper;
@@ -26,16 +26,13 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> RequestTrasf()
         {
-            string ids = TempData["Id"] as string;
+            string ids = userId;
             TempData["Id"] = ids;
             // RichiestaTrasf rich = new RichiestaTrasf();
             // ICollection<Request> list = await requestHelper.RequestsAsync();
             //ViewBag.lista = list;
             List<Richieste> ric = new List<Richieste>();
             Richieste richiestaTrasf = new Richieste();
-            richiestaTrasf.Name = "Ferie";
-            richiestaTrasf.From = DateTime.UtcNow;
-            richiestaTrasf.To = DateTime.UtcNow;
             richiestaTrasf.AccountId = ids;
             ric.Add(richiestaTrasf);
             return View(ric);
@@ -46,14 +43,14 @@ namespace Vap.Controllers
         {
           
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userId);
             return View(list);
 
         }
         public async Task<IActionResult> ListRichAccount()
         {
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userId);
             return View(list);
 
         }
@@ -71,10 +68,10 @@ namespace Vap.Controllers
 
 
             RequestAssignement request = new RequestAssignement();
-            request.Account = await accountHelper.GetById(this.userid);
+            request.Account = await accountHelper.GetById(this.userId);
             request.Request = await requestHelper.RetrieveByType(richiesta.RequestType.ToString());
             request.Note = richiesta.Note;
-            request.From = richiesta.From;
+            request.From = richiesta.StartDate;
             request.To = request.To;
             request.IsValid = request.IsValid;
             if (ModelState.IsValid)
