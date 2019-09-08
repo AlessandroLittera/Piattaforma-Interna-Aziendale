@@ -15,7 +15,7 @@ namespace Vap.Controllers
         readonly IVeicleHelper veicleHelper;
         private IAccountHelper accountHelper;
         private string userId = AccountController.userId;
-
+        private string acccountId = AccountController.accountId;
         public AutoController(IVeicleHelper veicleHelper, IAccountHelper accountHelper)
         {
             this.accountHelper = accountHelper;
@@ -40,6 +40,9 @@ namespace Vap.Controllers
             //string ids = TempData["Id"] as string;
             //TempData["Id"] = ids;
             //auto.AccountId = ids;
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType;
+            ViewBag.accountId = acccountId;
             VeicleAssignement request = new VeicleAssignement();
             request.Account = await accountHelper.GetById(AccountController.accountId);
             request.Veicle = await veicleHelper.RetrieveByType(auto.AutoType.ToString());
@@ -53,7 +56,7 @@ namespace Vap.Controllers
             {
 
                 var all = await veicleHelper.SaveVeicleAssignement(request);
-                return RedirectToAction("NewRequest");
+                return RedirectToAction("ListAuto");
 
             }
             return View();

@@ -20,7 +20,7 @@ namespace Vap.Models
         public DateTime To { get; set; }
         [Required]
         public string Note { get; set; }
-        public RequestTypes RequestType { get; }
+        public string RequestType { get; set; }
         List<RequestAssignement> ListRichieste = new List<RequestAssignement>();
 
         

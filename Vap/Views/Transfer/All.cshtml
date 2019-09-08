@@ -1,6 +1,6 @@
 ﻿@model ICollection<Models.RequestAssignement>
 @{
-    ViewData["Title"] = "ListRequest";
+    ViewData["Title"] = "All";
 }
 
 <div class="content">
@@ -16,7 +16,7 @@
             </thead>
 
             <tbody>
-                @using (Html.BeginForm("ListRichAccount", "Transfer", FormMethod.Post, new { @class = "form-horizontal" }))
+                @using (Html.BeginForm("ListAll", "Transfer", FormMethod.Post, new { @class = "form-horizontal" }))
                 {
                     @foreach (var person in Model)
                     {
@@ -25,17 +25,18 @@
                             <td>@Html.DisplayFor(item => person.From)</td>
                             <td>@Html.DisplayFor(item => person.To)</td>
                             <td>
+
                                 @if (person.IsValid)
                                 {
                                     <a>Confermato</a>
                                 }
                                 else
                                 {
-                                    <a>In attesa</a>
+                                    <input onclick="accetta(this.value)" value=@person.Request.Id />
                                 }
                             </td>
                         </tr>
-                        
+
                     }
                 }
             </tbody>
@@ -52,22 +53,20 @@
 
 </div>
 <script>
-    $(function () {
-        $('input').on('click', function () {
-            var Status = $(this).val();
-            alert(Status);
-            $.ajax({
-                url: 'Transfer/ChangeType',
-                data: {
-                    id: Status
-                },
-                dataType: 'json'
-            });
+    function accetta() {
+
+        Status: $(this).val();
+
+        $.ajax({
+            url: 'Transfer/ChangeType',
+            data: {
+                id: Status
+            },
+
         });
+    });
     });
 
 
 </script>
-
-
 

@@ -292,6 +292,26 @@ namespace Vap
 
 
     }
+    public class AutoBinder : IModelBinder
+    {
+        public Task BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext bindingContext)
+        {
+            var discriminator = bindingContext.ValueProvider.GetValue("AccountType").ToString();
+            var myType = AccountExtensions.Type(discriminator);
+            var result = Account.GetInstanceOf(myType);
+            result.Id = bindingContext.ValueProvider.GetValue("Id").ToString();
+            result.Nickname = bindingContext.ValueProvider.GetValue("Nickname").ToString();
+            result.Email = bindingContext.ValueProvider.GetValue("Email").ToString();
+            //  result.User.Id = bindingContext.ValueProvider.GetValue("User.Id").ToString();
+            //bindingContext.ModelState.SetModelValue(
+            //        bindingContext.ModelName, );
+            bindingContext.Result = ModelBindingResult.Success(result);
+            return Task.CompletedTask;
+            //return ModelBindingResult.Success(result);
+        }
+
+
+    }
     public class AssignementBinder : IModelBinder
     {
         public Task BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext bindingContext)

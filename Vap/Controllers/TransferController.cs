@@ -27,7 +27,7 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> RequestTrasf()
         {
-            string ids = userId;
+            string ids = userid;
             TempData["Id"] = ids;
             // RichiestaTrasf rich = new RichiestaTrasf();
             // ICollection<Request> list = await requestHelper.RequestsAsync();
@@ -44,14 +44,14 @@ namespace Vap.Controllers
         {
           
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userId);
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
         }
         public async Task<IActionResult> ListRichAccount()
         {
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userId);
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
         }
@@ -60,6 +60,11 @@ namespace Vap.Controllers
         public IActionResult NewRequest()
         {
             return View();
+        }
+        public async Task<IActionResult> ChangeType(string id)
+        {
+            var a = await requestHelper.RequestAssignementsValidByRequestIdAsync(id);
+            return RedirectToAction("ListRequest");
         }
 
         [HttpPost]
@@ -80,6 +85,14 @@ namespace Vap.Controllers
                 var all = await requestHelper.SaveRequestAssignement(request);
                 return RedirectToAction("NewRequest");
             }
+            return View();
+        }
+        public async Task<IActionResult> All()
+        {
+            return View();
+        }
+        public async Task<IActionResult> ListAll()
+        {
             return View();
         }
     }

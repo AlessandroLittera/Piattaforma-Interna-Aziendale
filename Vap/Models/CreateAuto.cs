@@ -11,7 +11,7 @@ namespace Vap.Models
     {
         public string Id { get; set; }
         public string AccountId { get; set; }
-        public AutoTypes AutoType { get; }
+        public string AutoType { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         [Required]
