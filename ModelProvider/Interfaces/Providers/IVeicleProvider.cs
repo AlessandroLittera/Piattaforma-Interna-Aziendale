@@ -17,6 +17,9 @@ namespace Models.Interfaces.Providers
         Task<bool> ValidateAsync(string id);
         Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement();
         Task<Veicle> RetrieveByType(string type);
+        Task<Veicle> GetById(string id);
+        Task<ICollection<VeicleAssignement>> VeicleAssignementsAsync();
+        Task<ICollection<VeicleAssignement>> AllRequestToValidateasync();
 
 
     }

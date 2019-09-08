@@ -37,6 +37,7 @@ namespace Provider.Sql.SqlProviders
 
         public async Task<Veicle> RetriveByIdAsync(string Id)
         {
+            await Task.Delay(0);
             if (int.TryParse(Id, out int veicleId))
             {
                 SqlVeicle sqlVeicle = dbContext.SqlVeicles.FirstOrDefault(x => x.Id == veicleId);
@@ -116,6 +117,17 @@ namespace Provider.Sql.SqlProviders
             }
             return false;
         }
+
+        public async Task<Veicle> GetById(string id)
+        {
+            if (int.TryParse(id, out int vId))
+            {
+                SqlVeicle sqlVeicle = await dbContext.SqlVeicles.FirstOrDefaultAsync(x=>x.Id == vId);
+                return mapper.Map<Veicle>(sqlVeicle);
+            }
+            return null;
+        }
+
         public async Task<bool> ValidateAsync(string id)
         {
             if (int.TryParse(id, out int veicleAssignementId))
@@ -159,6 +171,16 @@ namespace Provider.Sql.SqlProviders
                     }
                 default: return null;
             }
+        }
+        public async Task<ICollection<VeicleAssignement>> AllRequestToValidateasync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<VeicleAssignement>>(dbContext.SqlVeicleAssignements.Where(x=>!x.IsValid));
+        }
+        public async Task<ICollection<VeicleAssignement>> VeicleAssignementsAsync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<VeicleAssignement>>(dbContext.SqlVeicleAssignements);
         }
     }
 }

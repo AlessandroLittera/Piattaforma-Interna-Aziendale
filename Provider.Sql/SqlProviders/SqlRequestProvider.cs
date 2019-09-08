@@ -136,6 +136,26 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
             return false;
         }
 
+        public async Task<Request> GetById(string id)
+        {
+            if (int.TryParse(id, out int reqId))
+            {
+                SqlRequest sqlRequest = await dbcontext.SqlRequests.FirstOrDefaultAsync(x=>x.Id == reqId);
+                return mapper.Map<Request>(sqlRequest);
+            }
+            return null;
+        }
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsAsync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<RequestAssignement>>(dbcontext.SqlRequestAssignements);
+        }
+        public async Task<ICollection<RequestAssignement>> RequestAssignementsToValidateAsync()
+        {
+            await Task.Delay(0);
+            return mapper.Map<List<RequestAssignement>>(dbcontext.SqlRequestAssignements.Where(x=>!x.IsValid));
+        }
+
         public async Task<Request> RetrieveByType(string type)
         {
             switch (type)

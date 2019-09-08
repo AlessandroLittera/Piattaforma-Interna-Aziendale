@@ -17,6 +17,8 @@ namespace Models.Interfaces.Helpers
         Task<ICollection<RequestAssignement>> RequestAssignementsByRequestIdAsync(string id);
         Task<bool> SaveRequestAssignement(RequestAssignement requestAssignement);
         Task<Request> RetrieveByType(string type);
-
+        Task<Request> GetById(string id);
+        Task<ICollection<RequestAssignement>> RequestAssignementsAsync();
+        Task<ICollection<RequestAssignement>> RequestAssignementsToValidateAsync();
     }
 }

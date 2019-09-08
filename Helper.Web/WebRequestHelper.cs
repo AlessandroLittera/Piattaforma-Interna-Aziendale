@@ -60,5 +60,20 @@ namespace Helper.Web.Contextes
         {
             return provider.RetrieveByType(type);
         }
+
+        public Task<Request> GetById(string id)
+        {
+            return provider.GetById(id);
+        }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsAsync()
+        {
+            return provider.RequestAssignementsAsync();
+        }
+
+        public Task<ICollection<RequestAssignement>> RequestAssignementsToValidateAsync()
+        {
+            return provider.RequestAssignementsToValidateAsync();
+        }
     }
 }

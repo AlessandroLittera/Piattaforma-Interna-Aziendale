@@ -27,6 +27,7 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> RequestTrasf()
         {
+            await Task.Delay(0);
             string ids = this.userid;
             TempData["Id"] = ids;
             // RichiestaTrasf rich = new RichiestaTrasf();
