@@ -27,6 +27,12 @@ namespace Models.Interfaces.Providers
         Task<User> GetUserById(string id);
         Task<User> CheckUser(string email, string password);
 
-        
+        // for unitTest
+        Task<bool> RemoveUser(User user);
+        Task<bool> RemoveAccount(Account account);
+        Task<bool> RemoveAssignement(Assignement assignement);
+        Task<bool> ResetUserAsync(User user);
+        Task<bool> ResetAccountAsync(Account account);
+        Task<bool> ResetAssignementAsync(Assignement assignement);
     }
 }

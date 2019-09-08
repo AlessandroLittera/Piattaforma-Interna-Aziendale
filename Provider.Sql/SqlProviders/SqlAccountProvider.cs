@@ -322,5 +322,88 @@ namespace Provider.Sql.SqlProviders
             }
             return null;
         }
+
+
+        // methods for unitTest
+
+        public async Task<bool> RemoveUser(User user)
+        {
+            if (int.TryParse(user.Id, out int userId))
+            {
+                var aUser = await dbContext.SqlUsers.FirstOrDefaultAsync(x => x.Id == userId);
+                dbContext.Remove(aUser);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> ResetUserAsync(User user)
+        {
+            if (int.TryParse(user.Id, out int userId))
+            {
+                SqlUser sqlUser = await dbContext.SqlUsers.FirstOrDefaultAsync(x => x.Id == userId);
+                sqlUser.DeactivationDate = null;
+                foreach (var assignement in sqlUser.SqlAssignements)
+                {
+                    assignement.DeactivationDate = null;
+
+                }
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> ResetAccountAsync(Account account)
+        {
+            if (int.TryParse(account.Id, out int accountId))
+            {
+                SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
+                sqlAccount.DeactivationDate = null;
+                foreach (var assignement in sqlAccount.SqlAssignements)
+                {
+                    assignement.DeactivationDate = null;
+
+                }
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> ResetAssignementAsync(Assignement assignement)
+        {
+
+            if (int.TryParse(assignement.Id, out int assignementId))
+            {
+                SqlAssignement sqlAssignement = await dbContext.SqlAssignements.FirstOrDefaultAsync(x => x.Id == assignementId);
+                sqlAssignement.DeactivationDate = null;
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+
+        }
+        public async Task<bool> RemoveAccount(Account account)
+        {
+            if (int.TryParse(account.Id, out int accountId))
+            {
+                var aAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
+                dbContext.Remove(aAccount);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> RemoveAssignement(Assignement assignement)
+        {
+            if (int.TryParse(assignement.Id, out int assignementId))
+            {
+                var aAssignement = await dbContext.SqlAssignements.FirstOrDefaultAsync(x => x.Id == assignementId);
+                dbContext.Remove(aAssignement);
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
     }
 }
