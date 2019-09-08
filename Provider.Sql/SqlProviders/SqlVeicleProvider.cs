@@ -97,6 +97,14 @@ namespace Provider.Sql.SqlProviders
                     SqlAccount sqlAccount = await dbContext.SqlAccounts.FirstOrDefaultAsync(x => x.Id == accountId);
                     SqlVeicle sqlVeicle = await dbContext.SqlVeicles.FirstOrDefaultAsync(x => x.Id == veicleId);
                     SqlVeicleAssignement sqlVeicleAssignement = mapper.Map<SqlVeicleAssignement>(veicleAssignement);
+                    List<SqlVeicleAssignement> validYet = dbContext.SqlVeicleAssignements.Where(x=>x.SqlVeicle == sqlVeicle).ToList();
+                    foreach (var vA in validYet)
+                    {
+                        if (vA.From == veicleAssignement.From)
+                        {
+                            return false;
+                        }
+                    }
                     sqlVeicleAssignement.SqlAccount = sqlAccount;
                     sqlVeicleAssignement.SqlVeicle = sqlVeicle;
 

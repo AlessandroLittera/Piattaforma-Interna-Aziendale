@@ -30,7 +30,7 @@ namespace XUnitTest
         }
 
         [Theory]
-        [InlineData("gaetano@vetrya.com")]
+        [InlineData("a.cau@polimi.it")]
         public async Task CheckAccountFromEmail(string email)
         {
             //Arrange 

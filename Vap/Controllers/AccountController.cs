@@ -27,6 +27,7 @@ namespace Vap.Controllers
         readonly IUserHelper userHelper;
         private IMapper mapper;
         public static string userId;
+        public static string accountId;
         User userDto = new User();
         
         public AccountController(IAccountHelper accountHelper, IUserHelper userHelper, IMapper mapper)
@@ -58,6 +59,8 @@ namespace Vap.Controllers
             }
 
             userDto = await accountHelper.CheckUser(model.Email, model.Password);
+            Account account = await accountHelper.GetByEmailAsync(model.Email);
+            AccountController.accountId = account.Id;
             if (userDto == null)
             {
                 ModelState.AddModelError("", "Errore");
