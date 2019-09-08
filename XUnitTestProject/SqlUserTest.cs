@@ -169,7 +169,6 @@ namespace XUnitTest
         }
         [Theory]
         [InlineData("lop", "pol")]
-        //  [InlineData("blu","paperino")]
         public async Task CheckIfUserIsCreated(string name, string surname)
         {
             //Arrange
@@ -207,7 +206,7 @@ namespace XUnitTest
         }
 
         [Theory]
-        [InlineData("313")]
+        [InlineData("6")]
         public async Task CheckIfUserIsDeleted(string id)
         {
             var user = await userProvider.GetAsync(new User() { Id = id });

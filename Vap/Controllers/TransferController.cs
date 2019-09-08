@@ -14,7 +14,8 @@ namespace Vap.Controllers
     {
         readonly IRequestHelper requestHelper;
         readonly IAccountHelper accountHelper;
-        private string userId = AccountController.userId;
+        private string userid = AccountController.userId;
+        private string acccountId = AccountController.accountId;
         public TransferController(IRequestHelper requestHelper, IAccountHelper accountHelper)
         {
             this.requestHelper = requestHelper;
@@ -68,7 +69,7 @@ namespace Vap.Controllers
 
 
             RequestAssignement request = new RequestAssignement();
-            request.Account = await accountHelper.GetById(this.userId);
+            request.Account = await accountHelper.GetById(this.acccountId);
             request.Request = await requestHelper.RetrieveByType(richiesta.RequestType.ToString());
             request.Note = richiesta.Note;
             request.From = richiesta.StartDate;

@@ -16,6 +16,7 @@ namespace Models.Interfaces.Providers
         Task<bool> SaveVeicleAssignement(VeicleAssignement veicleAssignement);
         Task<bool> ValidateAsync(string id);
         Task<ICollection<VeicleAssignement>> AllValidVeicleAssignement();
+        Task<Veicle> RetrieveByType(string type);
 
 
     }

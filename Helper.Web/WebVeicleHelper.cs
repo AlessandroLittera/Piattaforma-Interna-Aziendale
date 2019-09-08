@@ -27,6 +27,11 @@ namespace Helper.Web
             return veicleProvider.DeleteAsync(id);
         }
 
+        public Task<Veicle> RetrieveByType(string type)
+        {
+            return veicleProvider.RetrieveByType(type);
+        }
+
         public Task<Veicle> RetriveByIdAsync(string Id)
         {
             return veicleProvider.RetriveByIdAsync(Id);
