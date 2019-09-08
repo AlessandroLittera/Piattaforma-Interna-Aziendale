@@ -1,0 +1,72 @@
+﻿@model ICollection<Models.VeicleAssignement>
+@{
+    ViewData["Title"] = "All";
+}
+
+<div class="content">
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Auto</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                    <th>Convalidato</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @using (Html.BeginForm("ListAll", "Auto", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @foreach (var person in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(item => person.Name)</td>
+                            <td>@Html.DisplayFor(item => person.From)</td>
+                            <td>@Html.DisplayFor(item => person.To)</td>
+                            <td>
+
+                                @if (person.IsValid)
+                                {
+                                    <a>Confermato</a>
+                                }
+                                else
+                                {
+                                    <input onclick="accetta(this.value)" value=@person.Veicle.Id />
+                                }
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Auto</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                    <th>Convalidato</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</div>
+<script>
+    function accetta() {
+
+        Status: $(this).val();
+
+        $.ajax({
+            url: 'Auto/ChangeType',
+            data: {
+                id: Status
+            },
+
+        });
+    });
+    });
+
+
+</script>
+

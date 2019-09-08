@@ -26,20 +26,25 @@ namespace Vap.Controllers
         private readonly IUserHelper userHelper;
         private readonly IResolutorFacade resolutorFacade;
         private readonly IMapper mapper;
+        private IAccountHelper accountHelper;
         private readonly IFileService fileService;
         private readonly IHostingEnvironment _hostingEnvironment;
         private string userId = AccountController.userId;
-        public UserController(IUserHelper userHelper, IResolutorFacade resolutorFacade, IFileService fileService, IHostingEnvironment environment, IMapper mapper)
+        private string acccountId = AccountController.accountId;
+        public UserController(IUserHelper userHelper, IAccountHelper accountHelper, IResolutorFacade resolutorFacade, IFileService fileService, IHostingEnvironment environment, IMapper mapper)
         {
             this.resolutorFacade = resolutorFacade;
             this.userHelper = userHelper;
             this.mapper = mapper;
             this.fileService = fileService;
             _hostingEnvironment = environment;
+            this.accountHelper = accountHelper;
         }
 
         public async Task<IActionResult> EditUserAccount()
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             await Task.Delay(0);
@@ -50,6 +55,8 @@ namespace Vap.Controllers
 
         public IActionResult Profile(User u)
         {
+            //Account account = await accountHelper.GetById(acccountId);
+            //ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             return View(u);
@@ -57,6 +64,8 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> NewUser(AccountantTypes accountantTypes)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             await Task.Delay(0);
@@ -72,6 +81,8 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewUserView(CreateUser createUser)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             var assignment = mapper.Map<Assignement>(createUser);
@@ -85,6 +96,8 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             User aUser = new User();
@@ -108,6 +121,9 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> All(string Id)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
+            ViewBag.accountId = acccountId;
             string ids = userId;
             TempData["Id"] = ids;
             ICollection<User> user = await userHelper.UsersAsync();
@@ -126,6 +142,8 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteAssignement(string id)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             await userHelper.DeleteAssignementAsync(ids);
@@ -135,6 +153,8 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> ListUserFromAccount(string email)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             ICollection<User> list = await userHelper.GetByEmailAsync(email);
@@ -144,6 +164,8 @@ namespace Vap.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveAssignement(string userId, List<string> accountsId)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             await userHelper.SetAssignementAsync(userId, accountsId);
@@ -153,6 +175,8 @@ namespace Vap.Controllers
 
         public async Task<IActionResult> ListAccounts(string id)
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             ListAccountsForUser list = new ListAccountsForUser();

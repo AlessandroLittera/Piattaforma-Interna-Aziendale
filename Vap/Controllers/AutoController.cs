@@ -21,14 +21,18 @@ namespace Vap.Controllers
             this.accountHelper = accountHelper;
             this.veicleHelper = veicleHelper;
         }
-        public IActionResult RequestAuto()
+        public async Task<IActionResult> RequestAutoAsync()
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             //string ids = TempData["Id"] as string;
             //TempData["Id"] = ids;
             return View();
         }
-        public IActionResult NewAuto()
+        public async Task<IActionResult> NewAutoAsync()
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             //string ids = TempData["Id"] as string;
             //TempData["Id"] = ids;
             return View();
@@ -66,9 +70,23 @@ namespace Vap.Controllers
             string ids = TempData["Id"] as string;
             TempData["Id"] = ids;
 
-            
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             ICollection<VeicleAssignement> list = await veicleHelper.AllValidVeicleAssignement();
 
+            return View(list);
+        }
+        public async Task<IActionResult> All()
+        {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
+            return View();
+        }
+        public async Task<IActionResult> ListAll()
+        {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
+            ICollection<VeicleAssignement> list = await veicleHelper.VeicleAssignementsAsync();
             return View(list);
         }
     }

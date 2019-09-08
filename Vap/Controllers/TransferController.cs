@@ -30,6 +30,8 @@ namespace Vap.Controllers
             await Task.Delay(0);
             string ids = this.userid;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             // RichiestaTrasf rich = new RichiestaTrasf();
             // ICollection<Request> list = await requestHelper.RequestsAsync();
             //ViewBag.lista = list;
@@ -43,15 +45,17 @@ namespace Vap.Controllers
         
         public async Task<IActionResult> ListRequest()
         {
-          
 
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
         }
         public async Task<IActionResult> ListRichAccount()
         {
-
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
@@ -73,7 +77,8 @@ namespace Vap.Controllers
         public async Task<IActionResult> NewRequestView(Richieste richiesta)
         {
 
-
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             RequestAssignement request = new RequestAssignement();
             request.Account = await accountHelper.GetById(this.acccountId);
             request.Request = await requestHelper.RetrieveByType(richiesta.RequestType.ToString());
@@ -90,11 +95,16 @@ namespace Vap.Controllers
         }
         public async Task<IActionResult> All()
         {
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
             return View();
         }
         public async Task<IActionResult> ListAll()
         {
-            return View();
+            Account account = await accountHelper.GetById(acccountId);
+            ViewBag.accountType = account.AccountType.ToString();
+            ICollection<RequestAssignement> list = await requestHelper.RequestAssignementsAsync();
+            return View(list);
         }
     }
 }

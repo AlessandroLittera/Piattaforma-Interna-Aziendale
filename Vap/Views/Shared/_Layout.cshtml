@@ -171,7 +171,7 @@
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("NewRequest", "Transfer")" title="List View"><i class="fa fa-list-ul">  </i>  Richieste </a></li>
                             <li><a href="@Url.Action("ListRequest", "Transfer")" title="List View"><i class="fa fa-list-ul">  </i> Richieste effettuate </a></li>
-                            @if (ViewBag.accountType == "admin")
+                            @if (ViewBag.accountType == "Admin")
                             {
                                 <li><a href="@Url.Action("All", "Transfer")" title="List View"><i class="fa fa-list-ul">  </i> Tutte le richieste </a></li>
                             }
@@ -188,6 +188,10 @@
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("NewAuto", "Auto")" title="List View"><i class="fa fa-list-ul">  </i>  Richieste </a></li>
                             <li><a href="@Url.Action("ListAuto", "Auto")" title="List View"><i class="fa fa-list-ul">  </i> Auto prenotate </a></li>
+                            @if (ViewBag.accountType == "Admin")
+                            {
+                                <li><a href="@Url.Action("All", "Auto")" title="List View"><i class="fa fa-list-ul">  </i> Tutte le richieste </a></li>
+                            }
                         </ul>
 
                         @*<li class="header">LABELS</li>

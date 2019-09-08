@@ -91,7 +91,7 @@ namespace Vap.Controllers
                 new SelectListItem("RSGSI", "RSGSI"),
                 new SelectListItem("Standard", "Standard")
             };
-
+            
 
             Account account = await accountHelper.GetById(id);
 
@@ -106,6 +106,8 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditAccountView(Account account)
         {
+            Account accountt = await accountHelper.GetById(accountId);
+            ViewBag.accountType = accountt.AccountType.ToString();
             string ids = userId;
             TempData["Id"] = ids;
             var edit = await accountHelper.EditAsync(account);
@@ -117,6 +119,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(accountId);
+            ViewBag.accountType = account.AccountType.ToString();
             var edit = await accountHelper.DeleteAsync(id);
             return RedirectToAction("ListAccounts");
         }
@@ -132,6 +136,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(accountId);
+            ViewBag.accountType = account.AccountType.ToString();
             ListUsersForAccount list = new ListUsersForAccount();
             list.Users = await accountHelper.UsersNotPresentAsync(id);
             list.account = await accountHelper.GetById(id);
@@ -144,6 +150,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(accountId);
+            ViewBag.accountType = account.AccountType.ToString();
             var edit = await accountHelper.SetAssignementAsync(accountsId, usersId);
             await HttpContext.SignInAsync(User);
             return RedirectToAction("ListAccounts");
@@ -153,6 +161,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(accountId);
+            ViewBag.accountType = account.AccountType.ToString();
             ICollection<Account> list = await accountHelper.AccountsAsync();
             return View(list);
         }
@@ -171,6 +181,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account account = await accountHelper.GetById(accountId);
+            ViewBag.accountType = account.AccountType.ToString();
             await Task.Delay(0);
             // da vedere bene
             // non  bello il modo in cui setto i valori e poi il passaggio con user
@@ -192,6 +204,8 @@ namespace Vap.Controllers
         {
             string ids = userId;
             TempData["Id"] = ids;
+            Account accounts = await accountHelper.GetById(accountId);
+            ViewBag.accountType = accounts.AccountType.ToString();
             Account account = mapper.Map<Account>(createAccount);
             if (ModelState.IsValid)
             {
