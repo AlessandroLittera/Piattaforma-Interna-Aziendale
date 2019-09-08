@@ -14,6 +14,12 @@ namespace Vap.Controllers
     {
         readonly IRequestHelper requestHelper;
         readonly IAccountHelper accountHelper;
+        private string userid = AccountController.userId;
+        public TransferController(IRequestHelper requestHelper, IAccountHelper accountHelper)
+        {
+            this.requestHelper = requestHelper;
+            this.accountHelper = accountHelper;
+        }
         public IActionResult Index()
         {
             return View();
@@ -38,20 +44,16 @@ namespace Vap.Controllers
         
         public async Task<IActionResult> ListRequest()
         {
-            string ids = TempData["Id"] as string;
-            TempData["Id"] = ids;
+          
 
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(ids);
-            ViewBag.lista = list;
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
         }
         public async Task<IActionResult> ListRichAccount()
         {
-            string ids = TempData["Id"] as string;
-            TempData["Id"] = ids;
-            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(ids);
-            ViewBag.lista = list;
+
+            ICollection<RequestAssignement> list = await accountHelper.RequestAssignementsByAccountIdAsync(this.userid);
             return View(list);
 
         }
@@ -59,8 +61,6 @@ namespace Vap.Controllers
 
         public IActionResult NewRequest()
         {
-            string ids = TempData["Id"] as string;
-            TempData["Id"] = ids;
             return View();
         }
 
@@ -68,11 +68,15 @@ namespace Vap.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewRequestView(Richieste richiesta)
         {
-            string ids = TempData["Id"] as string;
-            TempData["Id"] = ids;
-            richiesta.AccountId = ids;
-            RequestAssignement request = Mapper.Map<RequestAssignement>(richiesta);
-            
+
+
+            RequestAssignement request = new RequestAssignement();
+            request.Account = await accountHelper.GetById(this.userid);
+            request.Request = await requestHelper.RetrieveByType(richiesta.RequestType.ToString());
+            request.Note = richiesta.Note;
+            request.From = richiesta.From;
+            request.To = request.To;
+            request.IsValid = request.IsValid;
             if (ModelState.IsValid)
             {
                 var all = await requestHelper.SaveRequestAssignement(request);

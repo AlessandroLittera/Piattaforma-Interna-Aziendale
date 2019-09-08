@@ -11,7 +11,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><i class="fa fa-dashboard"></i>@Html.ActionLink("Home", "Index", "Home")</li>
-            <li class="active">List Users @ViewBag.Id</li>
+            <li class="active">List Users @TempData["id"]</li>
         </ol>
     </section>
     <!-- Main content -->

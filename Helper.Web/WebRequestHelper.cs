@@ -55,5 +55,10 @@ namespace Helper.Web.Contextes
         {
             return provider.SaveRequestAssignementAsync(requestAssignement);
         }
+
+        public Task<Request> RetrieveByType(string type)
+        {
+            return provider.RetrieveByType(type);
+        }
     }
 }

@@ -85,7 +85,7 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
                 {
                     sqlRequests.Add(request.SqlRequest);
                 }
-                return Mapper.Map<List<Request>>(sqlRequests);
+                return mapper.Map<List<Request>>(sqlRequests);
 
             }
             throw new NullReferenceException();
@@ -134,6 +134,32 @@ namespace Provider.Sql.SqlProviders.SqlContextesProvider
 
             }
             return false;
+        }
+
+        public async Task<Request> RetrieveByType(string type)
+        {
+            switch (type)
+            {
+                case "Malattia":
+                    {
+                        var req=    await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Name.Equals("Malattia"));
+                        return mapper.Map<Request>(req);
+                    }
+                case "Ferie":
+                    {
+                        var req=    await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Name.Equals("Ferie"));
+                        return mapper.Map<Request>(req);
+                    }case "Trasfrerta":
+                    {
+                        var req=    await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Name.Equals("Trasferta"));
+                        return mapper.Map<Request>(req);
+                    }case "Permesso":
+                    {
+                        var req=    await dbcontext.SqlRequests.FirstOrDefaultAsync(x => x.Name.Equals("Permesso"));
+                        return mapper.Map<Request>(req);
+                    }
+                default: return null;
+            };
         }
     }
 

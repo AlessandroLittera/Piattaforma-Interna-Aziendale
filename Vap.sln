@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Provider.Sql", "Provider.Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper.Web", "Helper.Web\Helper.Web.csproj", "{2F5BE201-5722-4A29-96CD-9556A01E45EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestProject", "XUnitTestProject\XUnitTestProject.csproj", "{3DFAE0A1-300E-4781-B853-297AB2A671A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F5BE201-5722-4A29-96CD-9556A01E45EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DFAE0A1-300E-4781-B853-297AB2A671A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFAE0A1-300E-4781-B853-297AB2A671A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFAE0A1-300E-4781-B853-297AB2A671A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFAE0A1-300E-4781-B853-297AB2A671A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

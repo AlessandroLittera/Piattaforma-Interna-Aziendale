@@ -49,7 +49,9 @@ namespace Provider.Sql
 
 
 
-            CreateMap<Request, SqlRequest>();
+            CreateMap<Request, SqlRequest>()
+                .ForMember(x => x.Id, opt => opt.Ignore());
+            CreateMap<SqlRequest, Request>();
             
 
             CreateMap<SqlVeicle, Veicle>();
@@ -57,8 +59,21 @@ namespace Provider.Sql
                 .ForMember(x => x.Id, opt => opt.Ignore());
 
 
+            CreateMap<SqlVeicleAssignement, VeicleAssignement>()
+                .ForMember(x => x.Veicle, opt => opt.MapFrom(src => src.SqlVeicle))
+                .ForMember(x => x.Account, opt => opt.MapFrom(src => src.SqlAccount));
+
+            CreateMap<VeicleAssignement,SqlVeicleAssignement>()
+                 .ForMember(x => x.SqlVeicle, opt => opt.MapFrom(src => src.Veicle))
+                 .ForMember(x => x.SqlAccount, opt => opt.MapFrom(src => src.Account));
 
 
+            CreateMap<SqlRequestAssignement, RequestAssignement>()
+                .ForMember(x => x.Request, opt => opt.MapFrom(src => src.SqlRequest))
+                .ForMember(x => x.Account, opt => opt.MapFrom(src => src.SqlAccount));
+            CreateMap<RequestAssignement, SqlRequestAssignement>()
+                 .ForMember(x => x.SqlRequest, opt => opt.MapFrom(src => src.Request))
+                .ForMember(x => x.SqlAccount, opt => opt.MapFrom(src => src.Account));
 
 
 
