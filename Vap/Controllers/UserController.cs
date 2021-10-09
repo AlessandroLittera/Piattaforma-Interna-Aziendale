@@ -41,6 +41,7 @@ namespace Vap.Controllers
             this.accountHelper = accountHelper;
         }
 
+        [HttpPost("/User")]
         public async Task<IActionResult> EditUserAccount()
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -52,7 +53,7 @@ namespace Vap.Controllers
         }
 
 
-
+        
         public IActionResult Profile(User u)
         {
             //Account account = await accountHelper.GetById(acccountId);
@@ -62,6 +63,7 @@ namespace Vap.Controllers
             return View(u);
         }
 
+        [HttpPost]
         public async Task<IActionResult> NewUser(AccountantTypes accountantTypes)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -77,7 +79,7 @@ namespace Vap.Controllers
             return View(mapper.Map<CreateUser>(assignement));
         }
 
-        [HttpPost]
+        [HttpPost("/View")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NewUserView(CreateUser createUser)
         {
@@ -93,7 +95,7 @@ namespace Vap.Controllers
 
         }
 
-
+        [HttpPut]
         public async Task<IActionResult> Edit(string id)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -107,7 +109,7 @@ namespace Vap.Controllers
             return View(aUser);
         }
 
-        [HttpPost]
+        [HttpPut("/EditUserView")]
         public async Task<IActionResult> EditUserView(User u)
         {
             string ids = userId; 
@@ -119,6 +121,7 @@ namespace Vap.Controllers
             return RedirectToAction("All");
         }
 
+        [HttpGet]
         public async Task<IActionResult> All(string Id)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -130,7 +133,8 @@ namespace Vap.Controllers
             //    await HttpContext.SignInAsync(User);
             return View(user);
         }
-        [HttpPost]
+
+        [HttpDelete]
         public async Task<IActionResult> DeleteConfirm(User u)
         {
             string ids = userId;
@@ -139,7 +143,7 @@ namespace Vap.Controllers
             return Content("");
         }
 
-        [HttpPost]
+        [HttpDelete("/Assignement")]
         public async Task<IActionResult> DeleteAssignement(string id)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -150,7 +154,7 @@ namespace Vap.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet("/{email}")]
         public async Task<IActionResult> ListUserFromAccount(string email)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -161,7 +165,7 @@ namespace Vap.Controllers
             return View(list);
         }
 
-        [HttpPost]
+        [HttpPost("/Assignement")]
         public async Task<IActionResult> SaveAssignement(string userId, List<string> accountsId)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -173,6 +177,7 @@ namespace Vap.Controllers
             return RedirectToAction("Edit/" + userId);
         }
 
+        [HttpGet("/Accounts")]
         public async Task<IActionResult> ListAccounts(string id)
         {
             Account account = await accountHelper.GetById(acccountId);
@@ -185,7 +190,7 @@ namespace Vap.Controllers
             return PartialView("_AccountsForUser", list);
         }
 
-        [HttpPost]
+        [HttpPost("/Logo")]
         public async Task<IActionResult> LogoUpload(IFormFile file)
         {
             string ids = userId;
