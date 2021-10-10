@@ -21,11 +21,20 @@ namespace Vap.V2.Controllers
 {
     public class UserController : Controller
     {
-        
 
+     private readonly IUserHelper userHelper;
+
+        public UserController(){
+        }
         [HttpGet("Healthcheck")]
         public IActionResult Helthcheck(){
             return ($"UserController ready at {DateTime.UtcNow}");
+        }
+
+        public Task<IActionResult> GetList(){
+
+        List<User> users = await userHelper.UsersAsync();
+        return users;
         }
     }
 }
